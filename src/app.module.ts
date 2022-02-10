@@ -8,6 +8,7 @@ import { UserModule } from './user/user.module';
 import { RouteModule } from './route/route.module';
 import { LocationModule } from './location/location.module';
 import { ErrorModule } from './error/error.module';
+import { WsModule } from './ws/ws.module';
 
 @Module({
   imports: [
@@ -23,6 +24,7 @@ import { ErrorModule } from './error/error.module';
     RouteModule,
     LocationModule,
     ErrorModule,
+    WsModule,
   ],
 })
 export class AppModule {}

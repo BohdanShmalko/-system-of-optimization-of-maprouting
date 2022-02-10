@@ -1,0 +1,212 @@
+{
+  "openapi": "3.0.0",
+  "paths": {
+    "/user/sendCode": {
+      "post": {
+        "operationId": "UserController_sendCode",
+        "summary": "Send code by phone number",
+        "parameters": [],
+        "responses": {
+          "200": {
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/String"
+                }
+              }
+            }
+          }
+        },
+        "tags": [
+          "User login API"
+        ]
+      }
+    },
+    "/user/confirmCode": {
+      "post": {
+        "operationId": "UserController_confirmCode",
+        "summary": "Confirm phone code",
+        "parameters": [],
+        "responses": {
+          "200": {
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/String"
+                }
+              }
+            }
+          }
+        },
+        "tags": [
+          "User login API"
+        ]
+      }
+    },
+    "/user/login": {
+      "post": {
+        "operationId": "UserController_loginByToken",
+        "summary": "Login user by token",
+        "parameters": [],
+        "responses": {
+          "200": {
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/String"
+                }
+              }
+            }
+          }
+        },
+        "tags": [
+          "User login API"
+        ]
+      }
+    },
+    "/route/place": {
+      "get": {
+        "operationId": "RouteController_routeToPlace",
+        "summary": "Get route to static place",
+        "parameters": [],
+        "responses": {
+          "200": {
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/String"
+                }
+              }
+            }
+          }
+        },
+        "tags": [
+          "User route API"
+        ]
+      }
+    },
+    "/route": {
+      "put": {
+        "operationId": "RouteController_changeUserAlgorithm",
+        "summary": "Change account algorithm",
+        "parameters": [],
+        "responses": {
+          "200": {
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/String"
+                }
+              }
+            }
+          }
+        },
+        "tags": [
+          "User route API"
+        ]
+      }
+    },
+    "/location": {
+      "post": {
+        "operationId": "LocationController_fixUserLocation",
+        "summary": "Fix user location in database",
+        "parameters": [],
+        "responses": {
+          "200": {
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/CommentDto"
+                }
+              }
+            }
+          }
+        },
+        "tags": [
+          "User location API"
+        ]
+      }
+    },
+    "/error": {
+      "post": {
+        "operationId": "ErrorController_fixError",
+        "summary": "Fix device error in database",
+        "parameters": [],
+        "responses": {
+          "200": {
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/String"
+                }
+              }
+            }
+          }
+        },
+        "tags": [
+          "Device errors API"
+        ]
+      }
+    }
+  },
+  "info": {
+    "title": "System for optimization of maprouting",
+    "description": "Documentation REST API",
+    "version": "1.0.0",
+    "contact": {}
+  },
+  "tags": [],
+  "servers": [],
+  "components": {
+    "schemas": {
+      "String": {
+        "type": "object",
+        "properties": {}
+      },
+      "CommentDto": {
+        "type": "object",
+        "properties": {
+          "photo": {
+            "type": "string",
+            "example": "https://some.com/images/defaultPhoto.png",
+            "description": "photo url"
+          },
+          "firstName": {
+            "type": "string",
+            "example": "Bob",
+            "description": "Owner first name"
+          },
+          "lastName": {
+            "type": "string",
+            "example": "Smith",
+            "description": "Owner last name"
+          },
+          "comment": {
+            "type": "string",
+            "example": "Good project",
+            "description": "user comment to project"
+          },
+          "date": {
+            "type": "number",
+            "example": 1627545194979,
+            "description": "Comment creation date"
+          }
+        },
+        "required": [
+          "photo",
+          "firstName",
+          "lastName",
+          "comment",
+          "date"
+        ]
+      }
+    }
+  }
+}

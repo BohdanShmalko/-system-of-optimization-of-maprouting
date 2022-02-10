@@ -2,6 +2,7 @@ import { NestFactory } from '@nestjs/core';
 import { AppModule } from './app.module';
 import { DocumentBuilder, SwaggerModule } from '@nestjs/swagger';
 import { ValidationPipe } from '@nestjs/common';
+import { writeFile } from "fs/promises";
 
 async function bootstrap() {
   const app = await NestFactory.create(AppModule, { cors: true });
@@ -19,6 +20,8 @@ async function bootstrap() {
       whitelist: true,
     }),
   );
-  await app.listen(9100);
+  await writeFile('./docs/openapi.json', JSON.stringify(document, null, 2), { encoding: 'utf8'});
+  if(process.env.docgen === 'true') await app.close();
+  else await app.listen(9100);
 }
 bootstrap();
