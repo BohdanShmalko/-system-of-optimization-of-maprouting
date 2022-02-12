@@ -3,6 +3,11 @@ import { UserLocationsSchema, UserLocations } from './user-locations.schema';
 import { MongooseModule } from '@nestjs/mongoose';
 import { UserLocationsService } from './user-locations.service';
 
+/**
+* UserLocations mongo module
+* @name UserLocationsModule
+* @kind module
+*/
 @Module({
     imports: [
         MongooseModule.forFeature([

@@ -19,4 +19,9 @@ export class UserLocations {
     time: number;
 }
 
+/**
+* UserLocations schema
+* @name UserLocationsSchema
+* @kind class
+*/
 export const UserLocationsSchema = SchemaFactory.createForClass(UserLocations);

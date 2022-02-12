@@ -4,6 +4,11 @@ import { ConfigService } from '@nestjs/config';
 
 import { AuthService } from './auth.service';
 
+/**
+* Auth module
+* @name AuthModule
+* @kind module
+*/
 @Global()
 @Module({
     imports: [

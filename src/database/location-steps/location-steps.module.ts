@@ -3,6 +3,11 @@ import { LocationStepsSchema, LocationSteps } from './location-steps.schema';
 import { MongooseModule } from '@nestjs/mongoose';
 import { LocationStepsService } from './location-steps.service';
 
+/**
+* LocationSteps mongo module
+* @name LocationStepsModule
+* @kind module
+*/
 @Module({
     imports: [
         MongooseModule.forFeature([

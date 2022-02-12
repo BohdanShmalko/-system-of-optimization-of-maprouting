@@ -3,6 +3,11 @@ import { InjectModel } from '@nestjs/mongoose';
 import { Model } from 'mongoose';
 import { UserLocations, UserLocationsDocument } from './user-locations.schema';
 
+/**
+* UserLocationsService database service
+* @name UserLocationsService
+* @kind class
+*/
 @Injectable()
 export class UserLocationsService {
     constructor(

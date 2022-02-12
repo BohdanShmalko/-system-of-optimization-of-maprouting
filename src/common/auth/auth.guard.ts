@@ -10,6 +10,11 @@ import { EHttpExceptionMessage } from '../dto/http.expression';
 import { AuthService } from './auth.service';
 import { MIDDLE_KEYS } from './auth.decorator';
 
+/**
+* JwtAuth Guard
+* @name JwtAuthGuard
+* @kind class
+*/
 @Injectable()
 export class JwtAuthGuard implements CanActivate {
     constructor(
@@ -17,6 +22,12 @@ export class JwtAuthGuard implements CanActivate {
         private reflector: Reflector,
     ) {}
 
+    /**
+     * Guard. Checks the jwt token, decrypts it and transmits data to the controller
+     * @name canActivate
+     * @property {Object}  context  - ExecutionContext from @nestjs/common
+     * @returns {boolean} valid status
+     */
     async canActivate(context: ExecutionContext): Promise<boolean> {
         const req = context.switchToHttp().getRequest();
         try {

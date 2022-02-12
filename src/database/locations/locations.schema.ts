@@ -23,4 +23,9 @@ export class Locations {
     algorithm: string
 }
 
+/**
+* Locations schema
+* @name LocationsSchema
+* @kind class
+*/
 export const LocationsSchema = SchemaFactory.createForClass(Locations);

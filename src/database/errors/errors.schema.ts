@@ -13,4 +13,9 @@ export class Errors {
     message: string;
 }
 
+/**
+* Errors schema
+* @name ErrorsSchema
+* @kind class
+*/
 export const ErrorsSchema = SchemaFactory.createForClass(Errors);

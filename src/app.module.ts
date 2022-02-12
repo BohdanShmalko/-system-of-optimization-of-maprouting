@@ -10,6 +10,11 @@ import { LocationModule } from './location/location.module';
 import { ErrorModule } from './error/error.module';
 import { WsModule } from './ws/ws.module';
 
+/**
+* App module
+* @name AppModule
+* @kind module
+*/
 @Module({
   imports: [
     ConfigModule.forRoot({

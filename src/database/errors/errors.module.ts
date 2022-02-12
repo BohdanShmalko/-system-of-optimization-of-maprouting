@@ -3,6 +3,11 @@ import { Errors, ErrorsSchema } from './errors.schema';
 import { MongooseModule } from '@nestjs/mongoose';
 import { ErrorsService } from './errors.service';
 
+/**
+* Errors mongo module
+* @name ErrorsModule
+* @kind module
+*/
 @Module({
     imports: [
         MongooseModule.forFeature([

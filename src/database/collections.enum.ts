@@ -1,3 +1,8 @@
+/**
+* Mongo collections Enum
+* @name ECollections
+* @kind namespace
+*/
 export enum ECollections {
     Users = 'Users',
     Locations = 'Locations',

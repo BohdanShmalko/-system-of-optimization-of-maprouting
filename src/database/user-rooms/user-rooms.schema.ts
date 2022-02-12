@@ -13,4 +13,9 @@ export class UserRooms {
     roomId: MongooseSchema.Types.ObjectId;
 }
 
+/**
+* UserRooms schema
+* @name UserRoomsSchema
+* @kind class
+*/
 export const UserRoomsSchema = SchemaFactory.createForClass(UserRooms);

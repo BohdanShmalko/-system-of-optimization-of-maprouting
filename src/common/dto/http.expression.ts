@@ -1,3 +1,8 @@
+/**
+* HttpExceptionMessage Enum
+* @name EHttpExceptionMessage
+* @kind namespace
+*/
 export enum EHttpExceptionMessage {
     Unauthorized = 'Not authorize user',
     IsExist = 'This user is already exist',

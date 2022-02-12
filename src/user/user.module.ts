@@ -4,6 +4,11 @@ import { UserService } from './user.service';
 import { AuthModule } from '@common/index';
 import { UsersModule } from '@db/index'
 
+/**
+* User module
+* @name UserModule
+* @kind module
+*/
 @Module({
   imports: [
       AuthModule,

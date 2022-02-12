@@ -3,9 +3,10 @@ module.exports = {
     description: 'some text that i paste in future',
     themeConfig: {
         nav: [
-            { text: 'nav1', link: '/' },
+            { text: 'nav1', link: '/websocket' },
             { text: 'nav2', link: '/1' },
             { text: 'nav3', link: '/2' }
         ]
-    }
+    },
+    sidebar: 'auto'
 }

@@ -10,4 +10,9 @@ export class Rooms {
     twoUsers: boolean;
 }
 
+/**
+* Rooms schema
+* @name RoomsSchema
+* @kind class
+*/
 export const RoomsSchema = SchemaFactory.createForClass(Rooms);

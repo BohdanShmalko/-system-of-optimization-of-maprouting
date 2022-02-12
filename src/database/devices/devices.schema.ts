@@ -15,4 +15,9 @@ export class Devices {
     deviceName: string
 }
 
+/**
+* Devices schema
+* @name DevicesSchema
+* @kind class
+*/
 export const DevicesSchema = SchemaFactory.createForClass(Devices);

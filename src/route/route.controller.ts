@@ -3,6 +3,11 @@ import { RouteService } from './route.service';
 import { Keys, JwtAuthGuard } from '@common/index';
 import { ApiOperation, ApiResponse, ApiTags } from '@nestjs/swagger';
 
+/**
+* Route controller
+* @name RouteController
+* @kind class
+*/
 @ApiTags('User route API')
 @Keys()
 @UseGuards(JwtAuthGuard)
@@ -15,6 +20,13 @@ export class RouteController {
     // routeToUser(){
     //     return this.service.routeToUser();
     // }
+    /**
+    * Create route for static place
+    * @name routeToPlace
+    * @kind event
+    * @property {Object}  data  - data
+    * @returns {string} ok status
+    */
     @ApiOperation({ summary: 'Get route to static place' })
     @ApiResponse({ status: 200, type: () => String })
     @HttpCode(200)
@@ -23,6 +35,13 @@ export class RouteController {
         return this.service.routeToPlace();
     }
 
+    /**
+    * Change user diskret algorithm for finding rout on map 
+    * @name changeUserAlgorithm
+    * @kind event
+    * @property {Object}  data  - data
+    * @returns {string} ok status
+    */
     @ApiOperation({ summary: 'Change account algorithm' })
     @ApiResponse({ status: 200, type: () => String })
     @HttpCode(200)

@@ -19,4 +19,9 @@ export class ActivePhones {
     code: string
 }
 
+/**
+* ActivePhones schema
+* @name ActivePhonesSchema
+* @kind class
+*/
 export const ActivePhonesSchema = SchemaFactory.createForClass(ActivePhones);

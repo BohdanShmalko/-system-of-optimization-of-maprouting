@@ -17,4 +17,9 @@ export class Users {
     algorithm: string
 }
 
+/**
+* Users schema
+* @name UsersSchema
+* @kind class
+*/
 export const UsersSchema = SchemaFactory.createForClass(Users);

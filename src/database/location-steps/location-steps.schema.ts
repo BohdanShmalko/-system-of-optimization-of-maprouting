@@ -19,4 +19,9 @@ export class LocationSteps {
     step: number;
 }
 
+/**
+* LocationSteps schema
+* @name LocationStepsSchema
+* @kind class
+*/
 export const LocationStepsSchema = SchemaFactory.createForClass(LocationSteps);
