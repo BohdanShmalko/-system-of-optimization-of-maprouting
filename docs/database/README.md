@@ -6,7 +6,7 @@ MongoDB is a document database with the scalability and flexibility that you wan
 
 ## Connections scheme
 
-![connections scheme]()...
+![connections scheme](https://i.ibb.co/Z8NfW8z/database.png)
 
 ## Collections
 
