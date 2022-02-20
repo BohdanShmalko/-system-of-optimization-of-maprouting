@@ -25,7 +25,7 @@ async function bootstrap() {
       whitelist: true,
     }),
   );
-  await writeFile('./docs/openapi.json', JSON.stringify(document, null, 2), { encoding: 'utf8'});
+  await writeFile('./openapi.json', JSON.stringify(document, null, 2), { encoding: 'utf8'});
   if(process.env.docgen === 'true') await app.close();
   else await app.listen(9100);
 }

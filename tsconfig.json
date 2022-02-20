@@ -13,7 +13,13 @@
     "skipLibCheck": true,
     "paths": {
       "@db/*" : ["src/database/*"],
-      "@common/*": ["src/common/*"]
+      "@common/*": ["src/common/*"],
+      "@error/*": ["src/error/*"],
+      "@location/*": ["src/location/*"],
+      "@route/*": ["src/route/*"],
+      "@user/*": ["src/user/*"],
+      "@ws/*": ["src/ws/*"],
+      "@mock/*": ["mock/*"],
     }
   }
 }

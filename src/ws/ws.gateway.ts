@@ -91,17 +91,4 @@ export class WsGateway implements OnGatewayInit, OnGatewayConnection, OnGatewayD
     handleUpdateLocation(client: Socket, message): Promise<WsResponse<string>> {
         return this.wsService.handleUpdateLocation(client, message, this. wss);
     }
-
-    /**
-     * Update user route for two users
-     * @name handleRouteUser
-     * @kind event
-     * @property {Object}  client  - ws client
-     * @property {Object}  message  - data from user
-     * @returns {Object} message for user
-     */
-    @SubscribeMessage(WsEnum.ServerUpdateLocation)
-    handleRouteUser(client: Socket, message): Promise<WsResponse<string>> {
-        return this.wsService.handleRouteUser(client, message, this. wss);
-    }
 }

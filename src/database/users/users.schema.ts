@@ -11,7 +11,7 @@ export class Users {
     phoneNumber: string;
 
     @Prop({default: false})
-    confirmed: string;
+    confirmed: boolean;
 
     @Prop({ required: true, enum: EAlgorithms })
     algorithm: string

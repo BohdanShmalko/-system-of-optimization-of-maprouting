@@ -5,5 +5,8 @@
 */
 export enum WsEnum {
     ServerUpdateLocation = 'serverUpdateLocation',
-    ServerErrorDevice = 'serverErrorDevice'
+    ServerErrorDevice = 'serverErrorDevice',
+
+    ClientErrorDevice = 'clientErrorDevice',
+    ClientUpdateLocation = 'clientUpdateLocation',
 }

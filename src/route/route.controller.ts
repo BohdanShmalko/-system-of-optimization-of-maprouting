@@ -1,6 +1,6 @@
-import { Controller, Get, Put, UseGuards, HttpCode } from '@nestjs/common';
+import { Controller, Get, Put, UseGuards, HttpCode, Query } from '@nestjs/common';
 import { RouteService } from './route.service';
-import { Keys, JwtAuthGuard } from '@common/index';
+import { Keys, JwtAuthGuard, CoordinateDto } from '@common/index';
 import { ApiOperation, ApiResponse, ApiTags } from '@nestjs/swagger';
 
 /**
@@ -46,7 +46,7 @@ export class RouteController {
     @ApiResponse({ status: 200, type: () => String })
     @HttpCode(200)
     @Put()
-    changeUserAlgorithm(): string {
+    changeUserAlgorithm(@Query() coordinates: CoordinateDto): string {
         return this.service.changeUserAlgorithm();
     }
 }

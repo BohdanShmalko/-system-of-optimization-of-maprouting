@@ -21,10 +21,6 @@ export class RouteService {
         return 'Hello World!';
     }
 
-    // routeToUser(): string {
-    //     return 'Hello World!';
-    // }
-
     /**
     * Create route for static place
     * @name routeToPlace
