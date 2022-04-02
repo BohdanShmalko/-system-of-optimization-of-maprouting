@@ -7,11 +7,8 @@
 <dt><a href="#module_AuthModule">AuthModule</a></dt>
 <dd><p>Auth module</p>
 </dd>
-<dt><a href="#module_ActivePhonesModule">ActivePhonesModule</a></dt>
-<dd><p>ActivePhones mongo module</p>
-</dd>
-<dt><a href="#module_ErrorsModule">ErrorsModule</a></dt>
-<dd><p>Devices mongo module</p>
+<dt><a href="#module_ClientsModule">ClientsModule</a></dt>
+<dd><p>Clients mongo module</p>
 </dd>
 <dt><a href="#module_ErrorsModule">ErrorsModule</a></dt>
 <dd><p>Errors mongo module</p>
@@ -25,6 +22,9 @@
 <dt><a href="#module_RoomsModule">RoomsModule</a></dt>
 <dd><p>Rooms mongo module</p>
 </dd>
+<dt><a href="#module_SuperAdminsModule">SuperAdminsModule</a></dt>
+<dd><p>SuperAdmins mongo module</p>
+</dd>
 <dt><a href="#module_UserLocationsModule">UserLocationsModule</a></dt>
 <dd><p>UserLocations mongo module</p>
 </dd>
@@ -34,14 +34,14 @@
 <dt><a href="#module_UsersModule">UsersModule</a></dt>
 <dd><p>Users mongo module</p>
 </dd>
+<dt><a href="#module_WebHooksModule">WebHooksModule</a></dt>
+<dd><p>WebHooksModule mongo module</p>
+</dd>
 <dt><a href="#module_ErrorModule">ErrorModule</a></dt>
 <dd><p>Error module</p>
 </dd>
 <dt><a href="#module_LocationModule">LocationModule</a></dt>
 <dd><p>Location module</p>
-</dd>
-<dt><a href="#module_RouteModule">RouteModule</a></dt>
-<dd><p>Route module</p>
 </dd>
 <dt><a href="#module_UserModule">UserModule</a></dt>
 <dd><p>User module</p>
@@ -58,13 +58,9 @@
 <dd></dd>
 <dt><a href="#ErrorService">ErrorService</a></dt>
 <dd></dd>
-<dt><a href="#ActivePhonesSchema">ActivePhonesSchema</a></dt>
+<dt><a href="#ClientsSchema">ClientsSchema</a></dt>
 <dd></dd>
-<dt><a href="#ActivePhonesService">ActivePhonesService</a></dt>
-<dd></dd>
-<dt><a href="#DevicesSchema">DevicesSchema</a></dt>
-<dd></dd>
-<dt><a href="#DevicesService">DevicesService</a></dt>
+<dt><a href="#ClientsService">ClientsService</a></dt>
 <dd></dd>
 <dt><a href="#ErrorsSchema">ErrorsSchema</a></dt>
 <dd></dd>
@@ -82,6 +78,10 @@
 <dd></dd>
 <dt><a href="#RoomsService">RoomsService</a></dt>
 <dd></dd>
+<dt><a href="#SuperAdminsSchema">SuperAdminsSchema</a></dt>
+<dd></dd>
+<dt><a href="#SuperAdminsService">SuperAdminsService</a></dt>
+<dd></dd>
 <dt><a href="#UserLocationsSchema">UserLocationsSchema</a></dt>
 <dd></dd>
 <dt><a href="#UserLocationsService">UserLocationsService</a></dt>
@@ -94,6 +94,10 @@
 <dd></dd>
 <dt><a href="#UsersService">UsersService</a></dt>
 <dd></dd>
+<dt><a href="#WebHooksSchema">WebHooksSchema</a></dt>
+<dd></dd>
+<dt><a href="#WebHooks">WebHooks</a></dt>
+<dd></dd>
 <dt><a href="#ErrorController">ErrorController</a></dt>
 <dd></dd>
 <dt><a href="#ErrorService">ErrorService</a></dt>
@@ -101,10 +105,6 @@
 <dt><a href="#LocationController">LocationController</a></dt>
 <dd></dd>
 <dt><a href="#LocationService">LocationService</a></dt>
-<dd></dd>
-<dt><a href="#RouteController">RouteController</a></dt>
-<dd></dd>
-<dt><a href="#RouteService">RouteService</a></dt>
 <dd></dd>
 <dt><a href="#UserController">UserController</a></dt>
 <dd></dd>
@@ -133,9 +133,6 @@
 <dt><a href="#ECollections">ECollections</a> : <code>object</code></dt>
 <dd><p>Mongo collections Enum</p>
 </dd>
-<dt><a href="#EDevices">EDevices</a> : <code>object</code></dt>
-<dd><p>Devices Enum</p>
-</dd>
 <dt><a href="#EAlgorithms">EAlgorithms</a> : <code>object</code></dt>
 <dd><p>Algorithms Enum</p>
 </dd>
@@ -158,17 +155,17 @@
 <dt><a href="#Keys">Keys()</a> ⇒ <code>object</code></dt>
 <dd><p>Decorator. Passes to the guard the keys that must be in the token</p>
 </dd>
-<dt><a href="#getJwtData">getJwtData()</a> ⇒ <code>boolean</code></dt>
-<dd><p>Get data from jwt token</p>
+<dt><a href="#getApiKeyData">getApiKeyData()</a> ⇒ <code>object</code></dt>
+<dd><p>Get client by api key</p>
 </dd>
-<dt><a href="#generateToken">generateToken()</a> ⇒ <code>string</code></dt>
-<dd><p>Generate jwt token</p>
+<dt><a href="#generateApiKey">generateApiKey()</a> ⇒ <code>string</code></dt>
+<dd><p>Generate ne api key</p>
 </dd>
 <dt><a href="#diff">diff()</a> ⇒ <code>boolean</code></dt>
 <dd><p>Compares the values of two arrays</p>
 </dd>
 <dt><a href="#fixError">fixError()</a> ⇒ <code>string</code></dt>
-<dd><p>Save user location in database</p>
+<dd><p>Save user error in database</p>
 </dd>
 <dt><a href="#fixUserLocation">fixUserLocation()</a> ⇒ <code>string</code></dt>
 <dd><p>Save user location in database</p>
@@ -176,11 +173,11 @@
 <dt><a href="#bootstrap">bootstrap()</a></dt>
 <dd><p>Main app function</p>
 </dd>
-<dt><a href="#changeUserAlgorithm">changeUserAlgorithm()</a> ⇒ <code>string</code></dt>
-<dd><p>Change user diskret algorithm for finding rout on map</p>
+<dt><a href="#loginUser">loginUser()</a> ⇒ <code>string</code></dt>
+<dd><p>Login user by token (beta)</p>
 </dd>
-<dt><a href="#routeToPlace">routeToPlace()</a> ⇒ <code>string</code></dt>
-<dd><p>Create route for static place</p>
+<dt><a href="#loginUser">loginUser()</a> ⇒ <code>string</code></dt>
+<dd><p>Login user by token (beta)</p>
 </dd>
 <dt><a href="#loginUser">loginUser()</a> ⇒ <code>string</code></dt>
 <dd><p>Login user by token (beta)</p>
@@ -220,12 +217,6 @@
 <dt><a href="#event_fixUserLocation">"fixUserLocation"</a> ⇒ <code>string</code></dt>
 <dd><p>Save user location in database</p>
 </dd>
-<dt><a href="#event_routeToPlace">"routeToPlace"</a> ⇒ <code>string</code></dt>
-<dd><p>Create route for static place</p>
-</dd>
-<dt><a href="#event_changeUserAlgorithm">"changeUserAlgorithm"</a> ⇒ <code>string</code></dt>
-<dd><p>Change user diskret algorithm for finding rout on map</p>
-</dd>
 <dt><a href="#event_sendCode">"sendCode"</a> ⇒ <code>string</code></dt>
 <dd><p>Send code for user phone</p>
 </dd>
@@ -262,15 +253,10 @@ App module
 ## AuthModule
 Auth module
 
-<a name="module_ActivePhonesModule"></a>
+<a name="module_ClientsModule"></a>
 
-## ActivePhonesModule
-ActivePhones mongo module
-
-<a name="module_ErrorsModule"></a>
-
-## ErrorsModule
-Devices mongo module
+## ClientsModule
+Clients mongo module
 
 <a name="module_ErrorsModule"></a>
 
@@ -292,6 +278,11 @@ Locations mongo module
 ## RoomsModule
 Rooms mongo module
 
+<a name="module_SuperAdminsModule"></a>
+
+## SuperAdminsModule
+SuperAdmins mongo module
+
 <a name="module_UserLocationsModule"></a>
 
 ## UserLocationsModule
@@ -307,6 +298,11 @@ UserRooms mongo module
 ## UsersModule
 Users mongo module
 
+<a name="module_WebHooksModule"></a>
+
+## WebHooksModule
+WebHooksModule mongo module
+
 <a name="module_ErrorModule"></a>
 
 ## ErrorModule
@@ -316,11 +312,6 @@ Error module
 
 ## LocationModule
 Location module
-
-<a name="module_RouteModule"></a>
-
-## RouteModule
-Route module
 
 <a name="module_UserModule"></a>
 
@@ -360,41 +351,23 @@ Error service class
 ### new ErrorService()
 Error service class
 
-<a name="ActivePhonesSchema"></a>
+<a name="ClientsSchema"></a>
 
-## ActivePhonesSchema
+## ClientsSchema
 **Kind**: global class  
-<a name="new_ActivePhonesSchema_new"></a>
+<a name="new_ClientsSchema_new"></a>
 
-### new ActivePhonesSchema()
-ActivePhones schema
+### new ClientsSchema()
+Clients schema
 
-<a name="ActivePhonesService"></a>
+<a name="ClientsService"></a>
 
-## ActivePhonesService
+## ClientsService
 **Kind**: global class  
-<a name="new_ActivePhonesService_new"></a>
+<a name="new_ClientsService_new"></a>
 
-### new ActivePhonesService()
-ActivePhonesService database service
-
-<a name="DevicesSchema"></a>
-
-## DevicesSchema
-**Kind**: global class  
-<a name="new_DevicesSchema_new"></a>
-
-### new DevicesSchema()
-Devices schema
-
-<a name="DevicesService"></a>
-
-## DevicesService
-**Kind**: global class  
-<a name="new_DevicesService_new"></a>
-
-### new DevicesService()
-DevicesService database service
+### new ClientsService()
+ClientsService database service
 
 <a name="ErrorsSchema"></a>
 
@@ -468,6 +441,24 @@ Rooms schema
 ### new RoomsService()
 RoomsService database service
 
+<a name="SuperAdminsSchema"></a>
+
+## SuperAdminsSchema
+**Kind**: global class  
+<a name="new_SuperAdminsSchema_new"></a>
+
+### new SuperAdminsSchema()
+SuperAdmins schema
+
+<a name="SuperAdminsService"></a>
+
+## SuperAdminsService
+**Kind**: global class  
+<a name="new_SuperAdminsService_new"></a>
+
+### new SuperAdminsService()
+SuperAdminsService database service
+
 <a name="UserLocationsSchema"></a>
 
 ## UserLocationsSchema
@@ -522,6 +513,24 @@ Users schema
 ### new UsersService()
 UsersService database service
 
+<a name="WebHooksSchema"></a>
+
+## WebHooksSchema
+**Kind**: global class  
+<a name="new_WebHooksSchema_new"></a>
+
+### new WebHooksSchema()
+WebHooks schema
+
+<a name="WebHooks"></a>
+
+## WebHooks
+**Kind**: global class  
+<a name="new_WebHooks_new"></a>
+
+### new WebHooks()
+WebHooks database service
+
 <a name="ErrorController"></a>
 
 ## ErrorController
@@ -567,24 +576,6 @@ Location controller
 
 ### new LocationService()
 Location service class
-
-<a name="RouteController"></a>
-
-## RouteController
-**Kind**: global class  
-<a name="new_RouteController_new"></a>
-
-### new RouteController()
-Route controller
-
-<a name="RouteService"></a>
-
-## RouteService
-**Kind**: global class  
-<a name="new_RouteService_new"></a>
-
-### new RouteService()
-Route service class
 
 <a name="UserController"></a>
 
@@ -647,12 +638,6 @@ HttpExceptionMessage Enum
 Mongo collections Enum
 
 **Kind**: global namespace  
-<a name="EDevices"></a>
-
-## EDevices : <code>object</code>
-Devices Enum
-
-**Kind**: global namespace  
 <a name="EAlgorithms"></a>
 
 ## EAlgorithms : <code>object</code>
@@ -684,33 +669,26 @@ Decorator. Passes to the guard the keys that must be in the token
 | --- | --- | --- |
 | keys | <code>Array.&lt;string&gt;</code> | array with keys |
 
-<a name="getJwtData"></a>
+<a name="getApiKeyData"></a>
 
-## getJwtData() ⇒ <code>boolean</code>
-Get data from jwt token
+## getApiKeyData() ⇒ <code>object</code>
+Get client by api key
 
 **Kind**: global function  
-**Returns**: <code>boolean</code> - is valid jwt token  
+**Returns**: <code>object</code> - object with information about client  
 **Properties**
 
 | Name | Type | Description |
 | --- | --- | --- |
-| authData | <code>Object</code> | object with token |
-| authData.token | <code>string</code> | jwt token |
+| apikey | <code>string</code> | string client or admin api key |
 
-<a name="generateToken"></a>
+<a name="generateApiKey"></a>
 
-## generateToken() ⇒ <code>string</code>
-Generate jwt token
+## generateApiKey() ⇒ <code>string</code>
+Generate ne api key
 
 **Kind**: global function  
-**Returns**: <code>string</code> - jwt token  
-**Properties**
-
-| Name | Type | Description |
-| --- | --- | --- |
-| payload | <code>Object</code> | data that want to encrypt |
-
+**Returns**: <code>string</code> - new apiKey  
 <a name="diff"></a>
 
 ## diff() ⇒ <code>boolean</code>
@@ -728,7 +706,7 @@ Compares the values of two arrays
 <a name="fixError"></a>
 
 ## fixError() ⇒ <code>string</code>
-Save user location in database
+Save user error in database
 
 **Kind**: global function  
 **Returns**: <code>string</code> - ok status  
@@ -757,10 +735,10 @@ Save user location in database
 Main app function
 
 **Kind**: global function  
-<a name="changeUserAlgorithm"></a>
+<a name="loginUser"></a>
 
-## changeUserAlgorithm() ⇒ <code>string</code>
-Change user diskret algorithm for finding rout on map
+## loginUser() ⇒ <code>string</code>
+Login user by token (beta)
 
 **Kind**: global function  
 **Returns**: <code>string</code> - ok status  
@@ -770,10 +748,10 @@ Change user diskret algorithm for finding rout on map
 | --- | --- | --- |
 | data | <code>Object</code> | data |
 
-<a name="routeToPlace"></a>
+<a name="loginUser"></a>
 
-## routeToPlace() ⇒ <code>string</code>
-Create route for static place
+## loginUser() ⇒ <code>string</code>
+Login user by token (beta)
 
 **Kind**: global function  
 **Returns**: <code>string</code> - ok status  
@@ -924,32 +902,6 @@ Save user location in database
 
 ## "fixUserLocation" ⇒ <code>string</code>
 Save user location in database
-
-**Kind**: event emitted  
-**Returns**: <code>string</code> - ok status  
-**Properties**
-
-| Name | Type | Description |
-| --- | --- | --- |
-| data | <code>Object</code> | data |
-
-<a name="event_routeToPlace"></a>
-
-## "routeToPlace" ⇒ <code>string</code>
-Create route for static place
-
-**Kind**: event emitted  
-**Returns**: <code>string</code> - ok status  
-**Properties**
-
-| Name | Type | Description |
-| --- | --- | --- |
-| data | <code>Object</code> | data |
-
-<a name="event_changeUserAlgorithm"></a>
-
-## "changeUserAlgorithm" ⇒ <code>string</code>
-Change user diskret algorithm for finding rout on map
 
 **Kind**: event emitted  
 **Returns**: <code>string</code> - ok status  

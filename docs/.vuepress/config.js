@@ -25,7 +25,7 @@ module.exports = {
             },
             {
                 title: 'Webhook settings',
-                path:"/webhook/",
+                path:"/webhooks/",
             },
             {
               title: 'REST API',
