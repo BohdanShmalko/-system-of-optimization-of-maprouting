@@ -1,3 +1,4 @@
+import { AuthModule } from '@common/index';
 import { Module } from '@nestjs/common';
 import { LocationController } from './location.controller';
 import { LocationService } from './location.service';
@@ -8,7 +9,7 @@ import { LocationService } from './location.service';
 * @kind module
 */
 @Module({
-  imports: [],
+  imports: [AuthModule],
   controllers: [LocationController],
   providers: [LocationService],
 })

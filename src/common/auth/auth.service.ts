@@ -1,5 +1,6 @@
-import { JwtService } from '@nestjs/jwt';
 import { Injectable } from '@nestjs/common';
+import { SuperAdminsService, ClientsService } from '@db/index';
+import { uuid } from 'uuidv4';
 
 /**
 * Error service class
@@ -8,34 +9,36 @@ import { Injectable } from '@nestjs/common';
 */
 @Injectable()
 export class AuthService {
-    constructor(private jwtService: JwtService) {
+    constructor(
+        private superAdminsService: SuperAdminsService,
+        private clientsService: ClientsService,
+    ) {}
+
+    /**
+     * Get client by api key
+     * @name getApiKeyData
+     * @kind function
+     * @property {string}  apikey  - string client or admin api key 
+     * @returns {object} object with information about client
+     */
+    public async getApiKeyData(
+        apikey: string,
+    ): Promise<{ isAdmin: boolean, document: object | null, valid:boolean }> {
+        const admin = await this.superAdminsService.findByApiKey(apikey);
+        if(admin) return { isAdmin: true, document: admin, valid: true };
+        const client = await this.clientsService.findByApiKey(apikey);
+        if(client) return { isAdmin: false, document: client, valid: true };
+        return { isAdmin: false, document: null, valid: false };
     }
 
     /**
-     * Get data from jwt token
-     * @name getJwtData
+     * Generate ne api key
+     * @name generateApiKey
      * @kind function
-     * @property {Object}  authData  - object with token
-     * @property {string}  authData.token  - jwt token
-     * @returns {boolean} is valid jwt token
+     * @returns {string} new apiKey
      */
-    public async getJwtData(
-        authData,
-    ): Promise<{ _id: string }> {
-        const { token } = authData;
-        if (!token) throw '';
-        return this.jwtService.verify(token);
-    }
-
-    /**
-     * Generate jwt token
-     * @name generateToken
-     * @kind function
-     * @property {Object}  payload  - data that want to encrypt
-     * @returns {string} jwt token
-     */
-    public generateToken(payload): string {
-        return this.jwtService.sign(payload);
+    public generateApiKey(): string {
+        return uuid();
     }
 
     /**
@@ -46,9 +49,10 @@ export class AuthService {
      * @property {string[]}  a2  - array #2
      * @returns {boolean} is same arrays
      */
-    public diff(a1, a2) {
-        return a1
-            .filter((i) => !a2.includes(i))
-            .concat(a2.filter((i) => !a1.includes(i)));
+    public diff(documentKeys: string[], keys: string[]): boolean {
+        for(const key of keys){
+            if(!documentKeys.includes(key)) return false;
+        }
+        return true;
     }
 }

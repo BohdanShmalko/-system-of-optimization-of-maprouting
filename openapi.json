@@ -93,7 +93,28 @@
       "put": {
         "operationId": "RouteController_changeUserAlgorithm",
         "summary": "Change account algorithm",
-        "parameters": [],
+        "parameters": [
+          {
+            "name": "lat",
+            "required": true,
+            "in": "query",
+            "example": "38.8951",
+            "description": "lat coordinate",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "lon",
+            "required": true,
+            "in": "query",
+            "example": "-77.0364",
+            "description": "lon coordinate",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
         "responses": {
           "200": {
             "description": "",

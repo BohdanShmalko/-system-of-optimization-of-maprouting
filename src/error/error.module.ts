@@ -1,3 +1,4 @@
+import { AuthModule } from '@common/index';
 import { Module } from '@nestjs/common';
 import { ErrorController } from './error.controller';
 import { ErrorService } from './error.service';
@@ -8,7 +9,7 @@ import { ErrorService } from './error.service';
 * @kind module
 */
 @Module({
-  imports: [],
+  imports: [AuthModule],
   controllers: [ErrorController],
   providers: [ErrorService],
 })

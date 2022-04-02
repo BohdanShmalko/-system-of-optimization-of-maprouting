@@ -11,13 +11,13 @@ export class ErrorService {
     }
 
     /**
-    * Save user location in database
+    * Save user error in database
     * @name fixError
     * @kind function
     * @property {Object}  data  - data
     * @returns {string} ok status
     */
-    fixError(): string {
+    fixError(req): string {
         return 'Hello World!';
     }
 }

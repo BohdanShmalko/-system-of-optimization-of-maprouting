@@ -1,6 +1,6 @@
-import { Controller, Post, UseGuards, HttpCode } from '@nestjs/common';
+import { Controller, Post, UseGuards, HttpCode, Req } from '@nestjs/common';
 import { ErrorService } from './error.service';
-import { JwtAuthGuard, Keys } from '@common/index';
+import { ApiKeyAuthGuard, Keys } from '@common/index';
 import { ApiOperation, ApiResponse, ApiTags } from '@nestjs/swagger';
 
 /**
@@ -24,9 +24,9 @@ export class ErrorController {
   @ApiResponse({ status: 200, type: () => String })
   @HttpCode(200)
   @Keys()
-  @UseGuards(JwtAuthGuard)
+  @UseGuards(ApiKeyAuthGuard)
   @Post()
-  fixError(): string {
-    return this.service.fixError();
+  fixError(@Req() req): string {
+    return this.service.fixError(req);
   }
 }

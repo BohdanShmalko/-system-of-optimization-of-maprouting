@@ -6,8 +6,8 @@ export type ErrorsDocument = Errors & Document;
 
 @Schema({ collection: ECollections.Errors, timestamps: true })
 export class Errors {
-    @Prop({ ref: ECollections.Devices, required: true })
-    deviceId: MongooseSchema.Types.ObjectId;
+    @Prop({ ref: ECollections.Users, required: true })
+    userId: MongooseSchema.Types.ObjectId;
 
     @Prop({ required: true })
     message: string;

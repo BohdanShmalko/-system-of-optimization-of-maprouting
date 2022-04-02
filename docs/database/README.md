@@ -6,11 +6,50 @@ MongoDB is a document database with the scalability and flexibility that you wan
 
 ## Connections scheme
 
-![connections scheme](https://i.ibb.co/Z8NfW8z/database.png)
+![connections scheme](https://i.ibb.co/b2r7Hw4/database.png)
 
 ## Collections
 
 Collections in the MongoDB database (tables)
+
+### Super Admins
+
+System administrators who have access to internal system configurations and can create clients
+
+| name        | type     | description        |
+|-------------|----------|------------------- |
+| _id         | ObjectId | Unique identifier  |
+| apiKey      | string   | unique admin api key |
+| name        | string   | unique admin name  |
+| createdAt   | Date     | data creation time |
+| updatedAt   | Date     | data update time   |
+
+### Clients
+
+Clients that use this system
+
+| name        | type     | description        |
+|-------------|----------|------------------- |
+| _id         | ObjectId | Unique identifier  |
+| apiKey      | string   | unique client api key |
+| name        | string   | unique client name  |
+| adminCreated| ObjectId | ref to superAdmin collection |
+| createdAt   | Date     | data creation time |
+| updatedAt   | Date     | data update time   |
+
+### Webhooks
+
+All client webhooks (for instant notification of the client)
+
+| name        | type     | description        |
+|-------------|----------|------------------- |
+| _id         | ObjectId | Unique identifier  |
+| clientId    | ObjectId | ref to client collection |
+| url         | string   | client redirect url|
+| event       | string   | system event       |
+| name        | string   | client webhook name|
+| createdAt   | Date     | data creation time |
+| updatedAt   | Date     | data update time   |
 
 ### Users
 
@@ -19,13 +58,14 @@ Data on registered users in the system
 | name        | type     | description        |
 |-------------|----------|------------------- |
 | _id         | ObjectId | Unique identifier  |
-| phoneNumber | string   | user phone number  |
-| confirmed   | boolean  | confirmed user status |
+| clientId    | ObjectId | ref to client collection |
+| externalId  | string   | optional external id |
+| optionalParams | Mixed | optional user params |
 | algorithm   | string   | choosen algorithm     |
 | createdAt   | Date     | data creation time |
 | updatedAt   | Date     | data update time   |
 
-### UsersLocations
+### UsersHistory
 
 The location of the user at a certain time
 
@@ -39,26 +79,14 @@ The location of the user at a certain time
 | createdAt   | Date     | data creation time |
 | updatedAt   | Date     | data update time   |
 
-### Devices
+### Errors
 
-Devices used by the user (arduino / smartphone)
+Users errors
 
 | name        | type     | description        |
 |-------------|----------|------------------- |
 | _id         | ObjectId | Unique identifier  |
 | userId      | ObjectId | ref to user collection |
-| deviceName  | string   | device name        |
-| createdAt   | Date     | data creation time |
-| updatedAt   | Date     | data update time   |
-
-### Errors
-
-Device errors
-
-| name        | type     | description        |
-|-------------|----------|------------------- |
-| _id         | ObjectId | Unique identifier  |
-| deviceId    | ObjectId | ref to device collection |
 | message     | string   | error message      |
 | createdAt   | Date     | data creation time |
 | updatedAt   | Date     | data update time   |
@@ -115,18 +143,5 @@ Steps to move from one location to another
 | createdAt   | Date     | data creation time |
 | updatedAt   | Date     | data update time   |
 
-### ActivePhones
-
-Phones of users waiting for confirmation (used at registration)
-
-| name        | type     | description        |
-|-------------|----------|------------------- |
-| _id         | ObjectId | Unique identifier  |
-| updated     | number   | last update        |
-| archived    | boolean  | is active data     |
-| phone       | string   | phone number       |
-| code        | string   | secret code        |
-| createdAt   | Date     | data creation time |
-| updatedAt   | Date     | data update time   |
 
 

@@ -7,14 +7,17 @@ export type UsersDocument = Users & Document;
 
 @Schema({collection: ECollections.Users, timestamps: true})
 export class Users {
-    @Prop({required: true, index: true})
-    phoneNumber: string;
+    @Prop({ ref: ECollections.Users, required: true })
+    clientId: MongooseSchema.Types.ObjectId;
 
-    @Prop({default: false})
-    confirmed: boolean;
+    @Prop({ ref: ECollections.Users, required: false })
+    externalId: MongooseSchema.Types.ObjectId;
 
     @Prop({ required: true, enum: EAlgorithms })
     algorithm: string
+
+    @Prop({ required: false })
+    optionalParams: MongooseSchema.Types.Mixed;
 }
 
 /**

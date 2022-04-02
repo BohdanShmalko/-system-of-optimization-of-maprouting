@@ -5,7 +5,6 @@ import * as path from 'path';
 
 import { MongooseModule } from '@nestjs/mongoose';
 import { UserModule } from './user/user.module';
-import { RouteModule } from './route/route.module';
 import { LocationModule } from './location/location.module';
 import { ErrorModule } from './error/error.module';
 import { WsModule } from './ws/ws.module';
@@ -26,7 +25,6 @@ import { WsModule } from './ws/ws.module';
     }),
     MongooseModule.forRoot(process.env.MONGO_URL || ''),
     UserModule,
-    RouteModule,
     LocationModule,
     ErrorModule,
     WsModule,

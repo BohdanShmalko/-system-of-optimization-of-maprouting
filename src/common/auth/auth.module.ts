@@ -3,6 +3,7 @@ import { JwtModule } from '@nestjs/jwt';
 import { ConfigService } from '@nestjs/config';
 
 import { AuthService } from './auth.service';
+import { SuperAdminsModule, ClientsModule } from '@db/index';
 
 /**
 * Auth module
@@ -12,12 +13,8 @@ import { AuthService } from './auth.service';
 @Global()
 @Module({
     imports: [
-        JwtModule.registerAsync({
-            inject: [ConfigService],
-            useFactory: (config: ConfigService) => ({
-                secret: config.get('JWT_SECRET_KEY'),
-            }),
-        }),
+        ClientsModule,
+        SuperAdminsModule,
     ],
     providers: [AuthService],
     exports: [AuthService, JwtModule],

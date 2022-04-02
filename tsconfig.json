@@ -12,12 +12,13 @@
     "incremental": true,
     "skipLibCheck": true,
     "paths": {
-      "@db/*" : ["src/database/*"],
-      "@common/*": ["src/common/*"],
+      "@db*" : ["src/database/index"],
+      "@common*": ["src/common/index"],
       "@error/*": ["src/error/*"],
       "@location/*": ["src/location/*"],
-      "@route/*": ["src/route/*"],
       "@user/*": ["src/user/*"],
+      "@webhooks/*": ["src/webhooks/*"],
+      "@super-admins/*": ["src/super-admins/*"],
       "@ws/*": ["src/ws/*"],
       "@mock/*": ["mock/*"],
     }

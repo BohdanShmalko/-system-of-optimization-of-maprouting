@@ -16,7 +16,7 @@ import { MIDDLE_KEYS } from './auth.decorator';
 * @kind class
 */
 @Injectable()
-export class JwtAuthGuard implements CanActivate {
+export class ApiKeyAuthGuard implements CanActivate {
     constructor(
         private authService: AuthService,
         private reflector: Reflector,
@@ -35,13 +35,12 @@ export class JwtAuthGuard implements CanActivate {
                 context.getHandler(),
                 context.getClass(),
             ]);
-            const jwtData = await this.authService.getJwtData({
-                token: req.headers.authorization,
-            });
-
-            const jwtKeys = Object.keys(jwtData);
-            if (keys && this.authService.diff(jwtKeys, keys).length) throw '';
-            req.jwtData = jwtData;
+            const apiKeyData = await this.authService.getApiKeyData(req.headers.api_key);
+            if(keys) {
+                const documentKeys = Object.keys(apiKeyData.document);
+                if (keys && this.authService.diff(documentKeys, keys)) throw '';
+            }
+            req.client = apiKeyData;
             return true;
         } catch (e) {
             throw new UnauthorizedException({

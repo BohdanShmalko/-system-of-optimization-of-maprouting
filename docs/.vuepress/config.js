@@ -24,6 +24,10 @@ module.exports = {
                 path:"/websocket/",
             },
             {
+                title: 'Webhook settings',
+                path:"/webhook/",
+            },
+            {
               title: 'REST API',
               path:"/rest/"
             },
