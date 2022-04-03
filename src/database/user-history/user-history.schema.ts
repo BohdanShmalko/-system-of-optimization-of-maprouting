@@ -2,10 +2,10 @@ import { Prop, Schema, SchemaFactory } from '@nestjs/mongoose';
 import { Document, Schema as MongooseSchema } from 'mongoose';
 import { ECollections } from '../collections.enum';
 
-export type UserLocationsDocument = UserLocations & Document;
+export type UserHistorysDocument = UserHistorys & Document;
 
 @Schema({ collection: ECollections.UserHistory, timestamps: true })
-export class UserLocations {
+export class UserHistorys {
     @Prop({ ref: ECollections.Users, required: true })
     userId: MongooseSchema.Types.ObjectId;
 
@@ -20,8 +20,8 @@ export class UserLocations {
 }
 
 /**
-* UserLocations schema
-* @name UserLocationsSchema
+* UserHistorys schema
+* @name UserHistorysSchema
 * @kind class
 */
-export const UserLocationsSchema = SchemaFactory.createForClass(UserLocations);
+export const UserHistorysSchema = SchemaFactory.createForClass(UserHistorys);

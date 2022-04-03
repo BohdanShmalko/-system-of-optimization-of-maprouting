@@ -6,3 +6,12 @@
 export enum EAlgorithms {
 
 }
+
+/**
+* Transports Enum
+* @name ETransports
+* @kind namespace
+*/
+export enum ETransports {
+
+}

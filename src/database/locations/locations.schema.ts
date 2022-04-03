@@ -1,7 +1,7 @@
 import { Prop, Schema, SchemaFactory } from '@nestjs/mongoose';
 import { Document, Schema as MongooseSchema } from 'mongoose';
 import { ECollections } from '../collections.enum';
-import { EAlgorithms } from './locations.enum';
+import { EAlgorithms, ETransports } from './locations.enum';
 
 export type LocationsDocument = Location & Document;
 
@@ -21,6 +21,9 @@ export class Locations {
 
     @Prop({ required: true, enum: EAlgorithms })
     algorithm: string
+
+    @Prop({ required: true, enum: ETransports })
+    transport: string
 }
 
 /**

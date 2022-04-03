@@ -1,7 +1,6 @@
 import { Module } from '@nestjs/common';
 import { WsService } from './ws.service';
 import { WsGateway } from './ws.gateway';
-import { AuthModule } from '@common/index';
 
 /**
 * Websocket module
@@ -9,7 +8,7 @@ import { AuthModule } from '@common/index';
 * @kind module
 */
 @Module({
-    imports: [AuthModule],
+    imports: [],
     providers: [WsService, WsGateway],
 })
 export class WsModule {

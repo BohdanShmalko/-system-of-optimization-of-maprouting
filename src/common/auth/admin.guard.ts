@@ -11,12 +11,12 @@ import { AuthService } from './auth.service';
 import { MIDDLE_KEYS } from './auth.decorator';
 
 /**
-* ApiKeyAuth Guard
-* @name ApiKeyAuthGuard
+* AdminAuth Guard
+* @name AdminAuthGuard
 * @kind class
 */
 @Injectable()
-export class ApiKeyAuthGuard implements CanActivate {
+export class AdminAuthGuard implements CanActivate {
     constructor(
         private authService: AuthService,
         private reflector: Reflector,
@@ -40,6 +40,7 @@ export class ApiKeyAuthGuard implements CanActivate {
                 const documentKeys = Object.keys(apiKeyData.document);
                 if (keys && this.authService.diff(documentKeys, keys)) throw '';
             }
+            if(!apiKeyData.isAdmin) throw '';
             req.client = apiKeyData;
             return true;
         } catch (e) {

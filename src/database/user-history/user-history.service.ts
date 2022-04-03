@@ -1,18 +1,18 @@
 import { Injectable } from '@nestjs/common';
 import { InjectModel } from '@nestjs/mongoose';
 import { Model } from 'mongoose';
-import { UserLocations, UserLocationsDocument } from './user-history.schema';
+import { UserHistorys, UserHistorysDocument } from './user-history.schema';
 
 /**
-* UserLocationsService database service
-* @name UserLocationsService
+* UserHistorysService database service
+* @name UserHistorysService
 * @kind class
 */
 @Injectable()
-export class UserLocationsService {
+export class UserHistorysService {
     constructor(
-        @InjectModel(UserLocations.name)
-        protected model: Model<UserLocationsDocument>,
+        @InjectModel(UserHistorys.name)
+        protected model: Model<UserHistorysDocument>,
     ) {
     }
 }

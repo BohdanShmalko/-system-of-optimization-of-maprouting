@@ -1,8 +1,7 @@
 import { Module } from '@nestjs/common';
 import { UserController } from './user.controller';
 import { UserService } from './user.service';
-import { AuthModule } from '@common/index';
-import { UsersModule } from '@db/index'
+import { UsersModule } from '@db'
 
 /**
 * User module
@@ -11,7 +10,6 @@ import { UsersModule } from '@db/index'
 */
 @Module({
   imports: [
-      AuthModule,
       UsersModule,
   ],
   controllers: [UserController],

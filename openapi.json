@@ -1,76 +1,10 @@
 {
   "openapi": "3.0.0",
   "paths": {
-    "/user/sendCode": {
-      "post": {
-        "operationId": "UserController_sendCode",
-        "summary": "Send code by phone number",
-        "parameters": [],
-        "responses": {
-          "200": {
-            "description": "",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/String"
-                }
-              }
-            }
-          }
-        },
-        "tags": [
-          "User login API"
-        ]
-      }
-    },
-    "/user/confirmCode": {
-      "post": {
-        "operationId": "UserController_confirmCode",
-        "summary": "Confirm phone code",
-        "parameters": [],
-        "responses": {
-          "200": {
-            "description": "",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/String"
-                }
-              }
-            }
-          }
-        },
-        "tags": [
-          "User login API"
-        ]
-      }
-    },
-    "/user/login": {
-      "post": {
-        "operationId": "UserController_loginByToken",
-        "summary": "Login user by token",
-        "parameters": [],
-        "responses": {
-          "200": {
-            "description": "",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/String"
-                }
-              }
-            }
-          }
-        },
-        "tags": [
-          "User login API"
-        ]
-      }
-    },
-    "/route/place": {
+    "/users": {
       "get": {
-        "operationId": "RouteController_routeToPlace",
-        "summary": "Get route to static place",
+        "operationId": "UserController_getUsers",
+        "summary": "Get users",
         "parameters": [],
         "responses": {
           "200": {
@@ -78,45 +12,87 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/String"
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/Users"
+                  }
                 }
               }
             }
           }
         },
         "tags": [
-          "User route API"
+          "User API"
+        ]
+      },
+      "post": {
+        "operationId": "UserController_createNewUser",
+        "summary": "Create new user",
+        "parameters": [],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/CreateUserDto"
+              }
+            }
+          }
+        },
+        "responses": {
+          "201": {
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Users"
+                }
+              }
+            }
+          }
+        },
+        "tags": [
+          "User API"
         ]
       }
     },
-    "/route": {
+    "/users/{userId}": {
       "put": {
-        "operationId": "RouteController_changeUserAlgorithm",
-        "summary": "Change account algorithm",
-        "parameters": [
-          {
-            "name": "lat",
-            "required": true,
-            "in": "query",
-            "example": "38.8951",
-            "description": "lat coordinate",
-            "schema": {
-              "type": "string"
-            }
-          },
-          {
-            "name": "lon",
-            "required": true,
-            "in": "query",
-            "example": "-77.0364",
-            "description": "lon coordinate",
-            "schema": {
-              "type": "string"
+        "operationId": "UserController_updateUser",
+        "summary": "Update user",
+        "parameters": [],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/UpdateUserDto"
+              }
             }
           }
-        ],
+        },
         "responses": {
-          "200": {
+          "204": {
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Users"
+                }
+              }
+            }
+          }
+        },
+        "tags": [
+          "User API"
+        ]
+      },
+      "delete": {
+        "operationId": "UserController_deleteUser",
+        "summary": "Delete user",
+        "parameters": [],
+        "responses": {
+          "204": {
             "description": "",
             "content": {
               "application/json": {
@@ -128,14 +104,44 @@
           }
         },
         "tags": [
-          "User route API"
+          "User API"
         ]
       }
     },
     "/location": {
       "post": {
         "operationId": "LocationController_fixUserLocation",
-        "summary": "Fix user location in database",
+        "summary": "Save user current location",
+        "parameters": [],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/CreateUserHistoryDto"
+              }
+            }
+          }
+        },
+        "responses": {
+          "201": {
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/UserHistorys"
+                }
+              }
+            }
+          }
+        },
+        "tags": [
+          "User location API"
+        ]
+      },
+      "get": {
+        "operationId": "LocationController_getRoute",
+        "summary": "Get rout between locations",
         "parameters": [],
         "responses": {
           "200": {
@@ -143,7 +149,10 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/CommentDto"
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/LocationStepsDto"
+                  }
                 }
               }
             }
@@ -154,13 +163,38 @@
         ]
       }
     },
-    "/error": {
-      "post": {
-        "operationId": "ErrorController_fixError",
-        "summary": "Fix device error in database",
+    "/errors": {
+      "get": {
+        "operationId": "ErrorController_getErrors",
+        "summary": "Get errors",
         "parameters": [],
         "responses": {
           "200": {
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/Errors"
+                  }
+                }
+              }
+            }
+          }
+        },
+        "tags": [
+          "Device errors API"
+        ]
+      }
+    },
+    "/errors/{errorId}": {
+      "delete": {
+        "operationId": "ErrorController_deleteError",
+        "summary": "Delete client",
+        "parameters": [],
+        "responses": {
+          "204": {
             "description": "",
             "content": {
               "application/json": {
@@ -175,6 +209,220 @@
           "Device errors API"
         ]
       }
+    },
+    "/superadmins/client": {
+      "get": {
+        "operationId": "SuperAdminsController_getClients",
+        "summary": "Get clients",
+        "parameters": [],
+        "responses": {
+          "200": {
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/Clients"
+                  }
+                }
+              }
+            }
+          }
+        },
+        "tags": [
+          "Super admins API"
+        ]
+      },
+      "post": {
+        "operationId": "SuperAdminsController_createNewClient",
+        "summary": "Create new client",
+        "parameters": [],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/CreateClientDto"
+              }
+            }
+          }
+        },
+        "responses": {
+          "201": {
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Clients"
+                }
+              }
+            }
+          }
+        },
+        "tags": [
+          "Super admins API"
+        ]
+      }
+    },
+    "/superadmins/client/{clientId}": {
+      "put": {
+        "operationId": "SuperAdminsController_updateClient",
+        "summary": "Update client",
+        "parameters": [],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/UpdateClientDto"
+              }
+            }
+          }
+        },
+        "responses": {
+          "204": {
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Clients"
+                }
+              }
+            }
+          }
+        },
+        "tags": [
+          "Super admins API"
+        ]
+      },
+      "delete": {
+        "operationId": "SuperAdminsController_deleteClient",
+        "summary": "Delete client",
+        "parameters": [],
+        "responses": {
+          "204": {
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/String"
+                }
+              }
+            }
+          }
+        },
+        "tags": [
+          "Super admins API"
+        ]
+      }
+    },
+    "/webhooks": {
+      "get": {
+        "operationId": "WebhookController_getWebhooks",
+        "summary": "Get Webhooks",
+        "parameters": [],
+        "responses": {
+          "200": {
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/WebHooks"
+                  }
+                }
+              }
+            }
+          }
+        },
+        "tags": [
+          "Webhook API"
+        ]
+      },
+      "post": {
+        "operationId": "WebhookController_createNewWebhook",
+        "summary": "Create new Webhook",
+        "parameters": [],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/CreateWebhookDto"
+              }
+            }
+          }
+        },
+        "responses": {
+          "201": {
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/WebHooks"
+                }
+              }
+            }
+          }
+        },
+        "tags": [
+          "Webhook API"
+        ]
+      }
+    },
+    "/webhooks/{webhookId}": {
+      "put": {
+        "operationId": "WebhookController_updateWebhook",
+        "summary": "Update Webhook",
+        "parameters": [],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/UpdateWebhookDto"
+              }
+            }
+          }
+        },
+        "responses": {
+          "204": {
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/WebHooks"
+                }
+              }
+            }
+          }
+        },
+        "tags": [
+          "Webhook API"
+        ]
+      },
+      "delete": {
+        "operationId": "WebhookController_deleteWebhook",
+        "summary": "Delete Webhook",
+        "parameters": [],
+        "responses": {
+          "204": {
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/String"
+                }
+              }
+            }
+          }
+        },
+        "tags": [
+          "Webhook API"
+        ]
+      }
     }
   },
   "info": {
@@ -187,46 +435,61 @@
   "servers": [],
   "components": {
     "schemas": {
+      "Users": {
+        "type": "object",
+        "properties": {}
+      },
+      "CreateUserDto": {
+        "type": "object",
+        "properties": {}
+      },
+      "UpdateUserDto": {
+        "type": "object",
+        "properties": {}
+      },
       "String": {
         "type": "object",
         "properties": {}
       },
-      "CommentDto": {
+      "CreateUserHistoryDto": {
         "type": "object",
-        "properties": {
-          "photo": {
-            "type": "string",
-            "example": "https://some.com/images/defaultPhoto.png",
-            "description": "photo url"
-          },
-          "firstName": {
-            "type": "string",
-            "example": "Bob",
-            "description": "Owner first name"
-          },
-          "lastName": {
-            "type": "string",
-            "example": "Smith",
-            "description": "Owner last name"
-          },
-          "comment": {
-            "type": "string",
-            "example": "Good project",
-            "description": "user comment to project"
-          },
-          "date": {
-            "type": "number",
-            "example": 1627545194979,
-            "description": "Comment creation date"
-          }
-        },
-        "required": [
-          "photo",
-          "firstName",
-          "lastName",
-          "comment",
-          "date"
-        ]
+        "properties": {}
+      },
+      "UserHistorys": {
+        "type": "object",
+        "properties": {}
+      },
+      "LocationStepsDto": {
+        "type": "object",
+        "properties": {}
+      },
+      "Errors": {
+        "type": "object",
+        "properties": {}
+      },
+      "Clients": {
+        "type": "object",
+        "properties": {}
+      },
+      "CreateClientDto": {
+        "type": "object",
+        "properties": {}
+      },
+      "UpdateClientDto": {
+        "type": "object",
+        "properties": {}
+      },
+      "WebHooks": {
+        "type": "object",
+        "properties": {}
+      },
+      "CreateWebhookDto": {
+        "type": "object",
+        "properties": {}
+      },
+      "UpdateWebhookDto": {
+        "type": "object",
+        "properties": {}
       }
     }
   }

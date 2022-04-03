@@ -42,53 +42,30 @@ const axios = require('axios');
 const { data } = await this.http.post('/location', {
     lat: 'your lat',
     lon: 'your lon',
-}, { Authorization: `Bearer ${yourToken}` }).toPromise();
+    userId: 'user id',
+}, { api_key: yourApiKey }).toPromise();
 ```
 
 #### Fix device error
 
 ```
 const { data } = await this.http.post('/error', {
-    error: 'error message'
-}, { Authorization: `Bearer ${yourToken}` }).toPromise();
-```
-
-#### Login by token
-
-```
-const { data } = await this.http.post('/user/login', {
-    token: 'your token'
-}).toPromise();
-```
-
-#### Send secure code
-
-```
-const { data } = await this.http.post('/user/sendCode', {
-    phone: 'your phone number'
-}).toPromise();
-```
-
-#### Confirm secure code
-
-```
-const { data } = await this.http.post('/user/confirmCode', {
-    phone: 'your phone number',
-    code: 'secure code',
-}).toPromise();
+    error: 'error message',
+    userId: 'user id',
+}, { api_key: yourApiKey }).toPromise();
 ```
 
 #### Change account algorithm
 
 ```
-const { data } = await this.http.put('/route', {
+const { data } = await this.http.put('/user/algorithm/:userId', {
     algorithm: 'choosen algorithm'
-}, { Authorization: `Bearer ${yourToken}` }).toPromise();
+}, { api_key: yourApiKey }).toPromise();
 ```
 
 #### Get route to static place
 
 ```
-const { data } = await this.http.get('/route/place?lat=placeLat;lon=placeLon',
-    { Authorization: `Bearer ${yourToken}` }).toPromise();
+const { data } = await this.http.get('/location/place?lat=placeLat;lon=placeLon',
+    { api_key: yourApiKey }).toPromise();
 ```

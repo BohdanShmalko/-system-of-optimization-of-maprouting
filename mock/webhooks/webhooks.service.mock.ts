@@ -1,10 +1,10 @@
 import { Injectable } from '@nestjs/common';
-import { WebHooks } from '@db/index';
+import { WebHooksService } from '@db';
 import { ObjectId } from 'mongodb';
 import { MongoService } from '../mongo/mongo.service.mock';
 
 @Injectable()
 //@ts-ignore
-export class WebhooksServiceMock implements WebHooks {
+export class WebhooksServiceMock implements WebHooksService {
     constructor(private mongo : MongoService){}
 }

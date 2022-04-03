@@ -1,9 +1,6 @@
 import { Global, Module } from '@nestjs/common';
-import { JwtModule } from '@nestjs/jwt';
-import { ConfigService } from '@nestjs/config';
-
 import { AuthService } from './auth.service';
-import { SuperAdminsModule, ClientsModule } from '@db/index';
+import { SuperAdminsModule, ClientsModule } from '@db';
 
 /**
 * Auth module
@@ -17,7 +14,7 @@ import { SuperAdminsModule, ClientsModule } from '@db/index';
         SuperAdminsModule,
     ],
     providers: [AuthService],
-    exports: [AuthService, JwtModule],
+    exports: [AuthService],
 })
 export class AuthModule {
 }

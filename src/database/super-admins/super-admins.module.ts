@@ -11,7 +11,7 @@ import { SuperAdminsService } from './super-admins.service';
 @Module({
     imports: [
         MongooseModule.forFeature([
-            { name: SuperAdmins.name, schema: SuperAdmins },
+            { name: SuperAdmins.name, schema: SuperAdminsSchema },
         ]),
     ],
     exports: [SuperAdminsService],

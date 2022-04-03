@@ -1,3 +1,5 @@
+import { ClientIdDto, CreateUserDto, GetUsersDto, UpdateUserDto, UserIdDto } from '@common';
+import { Users } from '@db';
 import { Injectable } from '@nestjs/common';
 
 /**
@@ -11,57 +13,51 @@ export class UserService {
   }
 
   /**
-  * Login user by token (beta)
-  * @name loginUser
-  * @kind function
-  * @property {Object}  data  - data
-  * @returns {string} ok status
+  * Get users
+  * @name getUsers
+  * @kind event
+  * @property {Object}  query  - query object dto
+  * @property {Object}  req  - req object
+  * @returns {Object} users documents
   */
-   createNewUser(): string {
-    return 'Hello World!';
+  getUsers(req, query: GetUsersDto): Promise<Users[]> {
+      return;
   }
 
   /**
-  * Login user by token (beta)
-  * @name loginUser
-  * @kind function
-  * @property {Object}  data  - data
-  * @returns {string} ok status
+  * Create new users
+  * @name createNewUser
+  * @kind event
+  * @property {Object}  dto  - create user dto
+  * @property {Object}  req  - req object
+  * @returns {Object} new user document
   */
-   getUsers(): string {
-    return 'Hello World!';
-  }
-
-  /**
-  * Login user by token (beta)
-  * @name loginUser
-  * @kind function
-  * @property {Object}  data  - data
-  * @returns {string} ok status
-  */
-  loginUser(): string {
-    return 'Hello World!';
-  }
-
-  /**
-  * Send code for user phone
-  * @name sendCode
-  * @kind function
-  * @property {Object}  data  - data
-  * @returns {string} ok status
-  */
-  sendCode(): string {
+  createNewUser(req, dto: CreateUserDto): Promise<Users> {
     return;
   }
 
   /**
-  * Confirm phone code
-  * @name confirmCode
-  * @kind function
-  * @property {Object}  data  - data
-  * @returns {string} ok status
+  * Update user
+  * @name updateUser
+  * @kind event
+  * @property {Object}  dto  - update user dto
+  * @property {Object}  param  - user id dto
+  * @property {Object}  req  - req object
+  * @returns {Object} new user document
   */
-  confirmCode(): string {
+  updateUser(req, param: UserIdDto, dto: UpdateUserDto): Promise<Users> {
+    return;
+  }
+
+  /**
+  * Delete user
+  * @name deleteUser
+  * @kind function
+  * @property {Object}  req  - req object
+  * @property {Object}  param  - user id dto
+  * @returns {string} delete status
+  */
+   deleteUser(req, param: ClientIdDto): Promise<string> {
     return;
   }
 }

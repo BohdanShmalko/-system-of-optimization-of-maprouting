@@ -1,21 +1,21 @@
 import { Module } from '@nestjs/common';
-import { UserLocationsSchema, UserLocations } from './user-history.schema';
+import { UserHistorysSchema, UserHistorys } from './user-history.schema';
 import { MongooseModule } from '@nestjs/mongoose';
-import { UserLocationsService } from './user-history.service';
+import { UserHistorysService } from './user-history.service';
 
 /**
-* UserLocations mongo module
-* @name UserLocationsModule
+* UserHistorys mongo module
+* @name UserHistorysModule
 * @kind module
 */
 @Module({
     imports: [
         MongooseModule.forFeature([
-            { name: UserLocations.name, schema: UserLocationsSchema },
+            { name: UserHistorys.name, schema: UserHistorysSchema },
         ]),
     ],
-    exports: [UserLocationsService],
-    providers: [UserLocationsService],
+    exports: [UserHistorysService],
+    providers: [UserHistorysService],
 })
-export class UserLocationsModule {
+export class UserHistorysModule {
 }

@@ -1,7 +1,7 @@
 import {Injectable, Logger} from '@nestjs/common';
 import {WsResponse} from "@nestjs/websockets";
 import {Socket, Server} from "socket.io";
-import {AuthService} from "@common/index";
+import {AuthService} from "@common";
 
 /**
 * Websocket service class

@@ -14,4 +14,5 @@ export enum ECollections {
     WebHooks = 'WebHooks',
     Clients = 'Clients',
     SuperAdmins = 'SuperAdmins',
+    WebHooksHistory = 'WebHooksHistory',
 }

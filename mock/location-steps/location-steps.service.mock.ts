@@ -1,10 +1,10 @@
 import { Injectable } from '@nestjs/common';
-import { LocationSteps } from '@db/index';
+import { LocationStepsService } from '@db';
 import { ObjectId } from 'mongodb';
 import { MongoService } from '../mongo/mongo.service.mock';
 
 @Injectable()
 //@ts-ignore
-export class LocationStepsServiceMock implements LocationSteps {
+export class LocationStepsServiceMock implements LocationStepsService {
     constructor(private mongo : MongoService){}
 }

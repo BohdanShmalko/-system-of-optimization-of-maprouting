@@ -1,6 +1,6 @@
 # System for building the optimal route on the map
 
-Designed to obtain the optimal route on the map. The system provides REST API and Websocket for easy interaction with customers. Based on the algorithms of "Discrete Mathematics and Graph Theory", the system compares existing routes and based on them creates a more optimal
+Designed to obtain the optimal route on the map. The system provides REST API, Webhook and Websocket for easy interaction with customers. Based on the algorithms of "Discrete Mathematics and Graph Theory", the system compares existing routes and based on them creates a more optimal
 
 ### Content 
 - [Designation and name](#name)
@@ -44,7 +44,8 @@ The following software and packages are required for the operation of a software
 * `socket.io` 4.4.1
 * `swagger-ui-express` 4.3.0
 * `vuepress` 1.9.7
-* `webpack` 4.42.0"
+* `webpack` 4.42.0
+* `uuidv4` 6.2.13
 
 dev
 
@@ -79,7 +80,7 @@ dev
 
 ## Appointment
 
-The system is designed to provide rest and web sockets api, to create client applications based on it. As well as to provide data for devices that interact with this system (eg Arduino)
+The system is designed to provide rest, webhook and web sockets api, to create client or server applications based on it. And also provides any support for devices, both gps modules (such as for Arduino) and regular smartphones
 
 <a name="structure"></a>
 
@@ -90,11 +91,13 @@ The system consists of some modules
 * SwagerModule - a module for automatic creation of system documentation
 * ServeStaticModule - a module for displaying statics in the system
 * MongooseModule - a module for interacting with the database
-* WsModule is a module for providing logic of web sockets
-* UserModule is a module that is responsible for the API of registration, login and user changes
-* RouteModule - a module responsible for building routes
-* LocationModule - a module for saving the location of users
-* ErrorModule - a module that is responsible for device errors
+* WebhooksModule - module for receiving, registering and sending web hooks
+* AuthModule - module for creating client rights and providing access to API
+* SuperAdminsModule - is designed for system administrators. Provides the ability to work with the customer base
+* WsModule - is a module for providing logic of web sockets
+* UserModule - a module that provides API for creating, viewing and editing users for the client
+* LocationModule - a module for getting locations in database and create new route for user
+* ErrorModule - a module that is responsible for users errors
 
 <a name="technical"></a>
 

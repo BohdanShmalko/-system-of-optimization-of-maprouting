@@ -1,10 +1,10 @@
 import { Injectable } from '@nestjs/common';
-import { SuperAdminsService, ClientsService } from '@db/index';
+import { SuperAdminsService, ClientsService } from '@db';
 import { uuid } from 'uuidv4';
 
 /**
-* Error service class
-* @name ErrorService
+* Auth service class
+* @name AuthService
 * @kind class
 */
 @Injectable()

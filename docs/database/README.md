@@ -6,7 +6,7 @@ MongoDB is a document database with the scalability and flexibility that you wan
 
 ## Connections scheme
 
-![connections scheme](https://i.ibb.co/b2r7Hw4/database.png)
+![connections scheme](https://i.ibb.co/1Xvzsjm/database2.png)
 
 ## Collections
 
@@ -48,6 +48,18 @@ All client webhooks (for instant notification of the client)
 | url         | string   | client redirect url|
 | event       | string   | system event       |
 | name        | string   | client webhook name|
+| createdAt   | Date     | data creation time |
+| updatedAt   | Date     | data update time   |
+
+### Webhooks History
+
+All client webhooks history (for instant notification of the client)
+
+| name        | type     | description        |
+|-------------|----------|------------------- |
+| _id         | ObjectId | Unique identifier  |
+| webhookId   | ObjectId | ref to webhooks collection |
+| data        | Mixed    | webhook data       |
 | createdAt   | Date     | data creation time |
 | updatedAt   | Date     | data update time   |
 
@@ -126,6 +138,7 @@ Optimized locations in the system
 | endLat      | string   | end lat coordinate |
 | endLon      | string   | end lon coordinate |
 | algorithm   | string   | location algorithm |
+| transport   | string   | location transport |
 | createdAt   | Date     | data creation time |
 | updatedAt   | Date     | data update time   |
 
