@@ -4,7 +4,7 @@
 * @kind namespace
 */
 export enum EAlgorithms {
-
+    BipartiteSubset = 'Bipartite Subset',
 }
 
 /**

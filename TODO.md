@@ -1,8 +1,9 @@
 1. (completed) Fill controllers
-2. Fill dtos
-3. Find external APIs
-4. Create services for external apis
-5. Fill services
-6. Write tests
-7. Write documentstion
-8. Wride bechela
+2. (completed) Fill dtos
+3. create main logic without external APIs
+4. Find external APIs
+5. Create services for external apis
+6. Fill services
+7. Write tests
+8. Write documentstion
+9. Write bechela

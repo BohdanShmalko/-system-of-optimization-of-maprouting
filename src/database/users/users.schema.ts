@@ -13,7 +13,7 @@ export class Users {
     @Prop({ ref: ECollections.Users, required: false })
     externalId: MongooseSchema.Types.ObjectId;
 
-    @Prop({ required: true, enum: EAlgorithms })
+    @Prop({ required: true, enum: EAlgorithms, default: EAlgorithms.BipartiteSubset })
     algorithm: string
 
     @Prop({ required: false })

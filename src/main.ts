@@ -3,6 +3,7 @@ import { AppModule } from './app.module';
 import { DocumentBuilder, SwaggerModule } from '@nestjs/swagger';
 import { ValidationPipe } from '@nestjs/common';
 import { writeFile } from "fs/promises";
+import { AllExceptionFilter } from '@common';
 
 /**
 * Main app function
@@ -26,6 +27,7 @@ async function bootstrap() {
     }),
   );
   await writeFile('./openapi.json', JSON.stringify(document, null, 2), { encoding: 'utf8'});
+  app.useGlobalFilters(new AllExceptionFilter());
   if(process.env.docgen === 'true') await app.close();
   else await app.listen(9100);
 }

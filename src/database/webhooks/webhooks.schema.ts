@@ -1,6 +1,7 @@
 import { Prop, Schema, SchemaFactory} from '@nestjs/mongoose';
 import { Document, Schema as MongooseSchema} from 'mongoose';
 import { ECollections} from '../collections.enum';
+import { EWebhookEvents } from './webhook-events.enum';
 
 export type WebHooksDocument = WebHooks & Document;
 
@@ -12,7 +13,7 @@ export class WebHooks {
     @Prop({ required: true })
     url: string;
 
-    @Prop({ required: true })
+    @Prop({ required: true, enum: EWebhookEvents })
     event: string;
 
     @Prop({ required: true })
