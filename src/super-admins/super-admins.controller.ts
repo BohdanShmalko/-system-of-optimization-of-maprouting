@@ -11,7 +11,7 @@ import {
     Get,
     Query
 } from '@nestjs/common';
-import { SuperAdminsService } from './super-admins.service';
+import { SuperAdminsApiService } from './super-admins.service';
 import { ApiOperation, ApiResponse, ApiTags } from '@nestjs/swagger';
 import { Clients } from '@db';
 import {
@@ -32,7 +32,7 @@ import {
 @UseGuards(AdminAuthGuard)
 @Controller('superadmins')
 export class SuperAdminsController {
-    constructor(private readonly service: SuperAdminsService) {}
+    constructor(private readonly service: SuperAdminsApiService) {}
 
     /**
     * Get clients

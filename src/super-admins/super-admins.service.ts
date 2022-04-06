@@ -1,6 +1,13 @@
-import { ClientIdDto, CreateClientDto, GetClientDto, UpdateClientDto } from '@common';
-import { Clients } from '@db';
-import { Injectable } from '@nestjs/common';
+import { 
+    AuthService, 
+    ClientIdDto, 
+    CreateClientDto, 
+    EHttpExceptionMessage, 
+    GetClientDto, 
+    UpdateClientDto 
+} from '@common';
+import { Clients, ClientsService, SuperAdminsService } from '@db';
+import { HttpException, HttpStatus, Injectable } from '@nestjs/common';
 
 /**
 * SuperAdmins service class
@@ -8,9 +15,12 @@ import { Injectable } from '@nestjs/common';
 * @kind class
 */
 @Injectable()
-export class SuperAdminsService {
-    constructor() {
-    }
+export class SuperAdminsApiService {
+    constructor(
+        private readonly superAdminsService: SuperAdminsService,
+        private readonly clientsService: ClientsService,
+        private readonly authModule: AuthService,
+    ) {}
 
     /**
     * Get clients
@@ -32,8 +42,20 @@ export class SuperAdminsService {
     * @property {Object}  req  - req object
     * @returns {Object} new client document
     */
-    createNewClient(req, dto: CreateClientDto): Promise<Clients> {
-        return;
+    async createNewClient(req, dto: CreateClientDto): Promise<Clients> {
+        const adminId = req.client.document._id;
+        const existingClient = await this.clientsService.findByName(dto.name);
+        if(existingClient) throw new HttpException(
+            EHttpExceptionMessage.ClientWithNameExist, 
+            HttpStatus.CONFLICT
+        );
+        const newClient = await this.clientsService.createNewClient({
+            ...dto,
+            adminCreated: adminId,
+            adminUpdated: adminId,
+            apiKey: this.authModule.generateApiKey(),
+        });
+        return newClient;
     }
 
     /**
@@ -45,8 +67,29 @@ export class SuperAdminsService {
     * @property {Object}  req  - req object
     * @returns {Object} new client document
     */
-     updateClient(req, param: ClientIdDto, dto: UpdateClientDto): Promise<Clients> {
-        return;
+     async updateClient(req, param: ClientIdDto, dto: UpdateClientDto): Promise<Clients> {
+        const adminId = req.client.document._id;
+        const existingClient = await this.clientsService.findByApiKey(dto.apiKey);
+        if(!existingClient) throw new HttpException(
+            EHttpExceptionMessage.ClientNotExistApiKey, 
+            HttpStatus.BAD_REQUEST
+        );
+        if(dto.name && existingClient.name !== dto.name) {
+            const clientWithSameName = await this.clientsService.findByName(dto.name);
+            if(clientWithSameName) throw new HttpException(
+                EHttpExceptionMessage.ClientWithNameExist, 
+                HttpStatus.CONFLICT
+            );
+        }
+        const updatedClient = await this.clientsService.updateClientById(
+            existingClient._id,
+            {
+                ...dto,
+                apiKey: dto.newApiKey || dto.apiKey,
+                adminUpdated: adminId,
+            }
+        );
+        return updatedClient;
     }
 
     /**
@@ -57,7 +100,15 @@ export class SuperAdminsService {
     * @property {Object}  param  - client id dto
     * @returns {string} delete status
     */
-     deleteClient(req, param: ClientIdDto): Promise<string> {
-        return;
+    async deleteClient(req, param: ClientIdDto): Promise<string> {
+        const adminId = req.client.document._id;
+        const clientId = param.clientId;
+        const existingUser = await this.clientsService.findById(clientId);
+        if(!existingUser) throw new HttpException(
+            EHttpExceptionMessage.ClientNotExistApiKey, 
+            HttpStatus.BAD_REQUEST
+        );
+        await this.clientsService.deleteById(clientId);
+        return 'ok';
     }
 }

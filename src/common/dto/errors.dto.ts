@@ -1,4 +1,4 @@
-import { BaseSearchDto } from '@common';
+import { BaseSearchDto } from './common.dto';
 import { ApiProperty } from '@nestjs/swagger';
 import { IsMongoId } from 'class-validator';
 

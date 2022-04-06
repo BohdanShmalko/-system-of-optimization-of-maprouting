@@ -1,4 +1,5 @@
-import { BaseSearchDto, CoordinateDto } from '@common';
+import { BaseSearchDto } from './common.dto';
+import { CoordinateDto } from './coordinate.dto';
 import { ETransports } from '@db';
 import { ApiProperty } from '@nestjs/swagger';
 import { IsEnum, IsMongoId, IsNumber, IsString } from 'class-validator';

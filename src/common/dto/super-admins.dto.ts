@@ -44,13 +44,20 @@ export class UpdateClientDto {
     @IsMongoId()
     name!: string;
 
-    @IsOptional()
-    @ApiPropertyOptional({
+    @ApiProperty({
         example: '783fe2cf-329e-40bf-812b-1830ba3c80bb',
-        description: 'new client apikey',
+        description: 'client apikey',
     })
     @IsString()
     apiKey!: string;
+
+    @IsOptional()
+    @ApiPropertyOptional({
+        example: '7835682cf-329e-40bf-812b-1830ba3c80bb',
+        description: 'new client apikey',
+    })
+    @IsString()
+    newApiKey!: string;
 }
 
 /**

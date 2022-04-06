@@ -5,7 +5,7 @@ import * as path from 'path';
 import { MongooseModule } from '@nestjs/mongoose';
 
 import { UserModule } from './user/user.module';
-import { SuperAdminsModule } from './super-admins/super-admins.module';
+import { SuperAdminsApiModule } from './super-admins/super-admins.module';
 import { LocationModule } from './location/location.module';
 import { ErrorModule } from './error/error.module';
 import { WebhookModule } from './webhooks/webhooks.module';
@@ -32,7 +32,7 @@ import { AuthModule } from '@common';
     LocationModule,
     ErrorModule,
     WsModule,
-    SuperAdminsModule,
+    SuperAdminsApiModule,
     WebhookModule,
   ],
 })

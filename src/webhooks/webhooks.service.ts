@@ -57,7 +57,7 @@ export class WebhookService {
   * @property {Object}  param  - Webhook id dto
   * @returns {string} delete status
   */
-   deleteWebhook(req, param: ClientIdDto): Promise<string> {
+   deleteWebhook(req, param: WebhookIdDto): Promise<string> {
     return;
   }
 }

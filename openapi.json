@@ -5,7 +5,71 @@
       "get": {
         "operationId": "UserController_getUsers",
         "summary": "Get users",
-        "parameters": [],
+        "parameters": [
+          {
+            "name": "field",
+            "required": false,
+            "in": "query",
+            "example": "_id",
+            "description": "field that you want to find",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "values",
+            "required": false,
+            "in": "query",
+            "example": "[\"6200e7b2b3cfeca3405f57f0\", \"61fd2eecf3f78493727204f0\"]",
+            "description": "JSON array with values that you want to find",
+            "schema": {
+              "type": "array",
+              "items": {
+                "type": "string"
+              }
+            }
+          },
+          {
+            "name": "dateFrom",
+            "required": false,
+            "in": "query",
+            "example": 1649186190881,
+            "description": "UTC time from",
+            "schema": {
+              "type": "number"
+            }
+          },
+          {
+            "name": "dateTo",
+            "required": false,
+            "in": "query",
+            "example": 1649186190881,
+            "description": "UTC time to",
+            "schema": {
+              "type": "number"
+            }
+          },
+          {
+            "name": "limit",
+            "required": false,
+            "in": "query",
+            "example": 100,
+            "description": "limit number",
+            "schema": {
+              "type": "number"
+            }
+          },
+          {
+            "name": "skip",
+            "required": false,
+            "in": "query",
+            "example": 5,
+            "description": "skip number",
+            "schema": {
+              "type": "number"
+            }
+          }
+        ],
         "responses": {
           "200": {
             "description": "",
@@ -60,7 +124,18 @@
       "put": {
         "operationId": "UserController_updateUser",
         "summary": "Update user",
-        "parameters": [],
+        "parameters": [
+          {
+            "name": "userId",
+            "required": true,
+            "in": "path",
+            "example": "6200e7b2b3cfeca3405f57f0",
+            "description": "user id",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
         "requestBody": {
           "required": true,
           "content": {
@@ -90,7 +165,18 @@
       "delete": {
         "operationId": "UserController_deleteUser",
         "summary": "Delete user",
-        "parameters": [],
+        "parameters": [
+          {
+            "name": "userId",
+            "required": true,
+            "in": "path",
+            "example": "6200e7b2b3cfeca3405f57f0",
+            "description": "user id",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
         "responses": {
           "204": {
             "description": "",
@@ -142,7 +228,68 @@
       "get": {
         "operationId": "LocationController_getRoute",
         "summary": "Get rout between locations",
-        "parameters": [],
+        "parameters": [
+          {
+            "name": "startLat",
+            "required": true,
+            "in": "query",
+            "example": "38.8951",
+            "description": "start lat coordinate",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "startLon",
+            "required": true,
+            "in": "query",
+            "example": "-77.0364",
+            "description": "start lon coordinate",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "endLat",
+            "required": true,
+            "in": "query",
+            "example": "31.8951",
+            "description": "end lat coordinate",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "endLon",
+            "required": true,
+            "in": "query",
+            "example": "-71.0364",
+            "description": "end  coordinate",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "userId",
+            "required": true,
+            "in": "query",
+            "example": "6200e7b2b3cfeca3405f57f0",
+            "description": "user id",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "transport",
+            "required": true,
+            "in": "query",
+            "example": "car",
+            "description": "location for transport",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
         "responses": {
           "200": {
             "description": "",
@@ -167,7 +314,71 @@
       "get": {
         "operationId": "ErrorController_getErrors",
         "summary": "Get errors",
-        "parameters": [],
+        "parameters": [
+          {
+            "name": "field",
+            "required": false,
+            "in": "query",
+            "example": "_id",
+            "description": "field that you want to find",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "values",
+            "required": false,
+            "in": "query",
+            "example": "[\"6200e7b2b3cfeca3405f57f0\", \"61fd2eecf3f78493727204f0\"]",
+            "description": "JSON array with values that you want to find",
+            "schema": {
+              "type": "array",
+              "items": {
+                "type": "string"
+              }
+            }
+          },
+          {
+            "name": "dateFrom",
+            "required": false,
+            "in": "query",
+            "example": 1649186190881,
+            "description": "UTC time from",
+            "schema": {
+              "type": "number"
+            }
+          },
+          {
+            "name": "dateTo",
+            "required": false,
+            "in": "query",
+            "example": 1649186190881,
+            "description": "UTC time to",
+            "schema": {
+              "type": "number"
+            }
+          },
+          {
+            "name": "limit",
+            "required": false,
+            "in": "query",
+            "example": 100,
+            "description": "limit number",
+            "schema": {
+              "type": "number"
+            }
+          },
+          {
+            "name": "skip",
+            "required": false,
+            "in": "query",
+            "example": 5,
+            "description": "skip number",
+            "schema": {
+              "type": "number"
+            }
+          }
+        ],
         "responses": {
           "200": {
             "description": "",
@@ -192,7 +403,18 @@
       "delete": {
         "operationId": "ErrorController_deleteError",
         "summary": "Delete client",
-        "parameters": [],
+        "parameters": [
+          {
+            "name": "errorId",
+            "required": true,
+            "in": "path",
+            "example": "6200e7b2b3cfeca3405f57f0",
+            "description": "error id",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
         "responses": {
           "204": {
             "description": "",
@@ -214,7 +436,71 @@
       "get": {
         "operationId": "SuperAdminsController_getClients",
         "summary": "Get clients",
-        "parameters": [],
+        "parameters": [
+          {
+            "name": "field",
+            "required": false,
+            "in": "query",
+            "example": "_id",
+            "description": "field that you want to find",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "values",
+            "required": false,
+            "in": "query",
+            "example": "[\"6200e7b2b3cfeca3405f57f0\", \"61fd2eecf3f78493727204f0\"]",
+            "description": "JSON array with values that you want to find",
+            "schema": {
+              "type": "array",
+              "items": {
+                "type": "string"
+              }
+            }
+          },
+          {
+            "name": "dateFrom",
+            "required": false,
+            "in": "query",
+            "example": 1649186190881,
+            "description": "UTC time from",
+            "schema": {
+              "type": "number"
+            }
+          },
+          {
+            "name": "dateTo",
+            "required": false,
+            "in": "query",
+            "example": 1649186190881,
+            "description": "UTC time to",
+            "schema": {
+              "type": "number"
+            }
+          },
+          {
+            "name": "limit",
+            "required": false,
+            "in": "query",
+            "example": 100,
+            "description": "limit number",
+            "schema": {
+              "type": "number"
+            }
+          },
+          {
+            "name": "skip",
+            "required": false,
+            "in": "query",
+            "example": 5,
+            "description": "skip number",
+            "schema": {
+              "type": "number"
+            }
+          }
+        ],
         "responses": {
           "200": {
             "description": "",
@@ -269,7 +555,18 @@
       "put": {
         "operationId": "SuperAdminsController_updateClient",
         "summary": "Update client",
-        "parameters": [],
+        "parameters": [
+          {
+            "name": "clientId",
+            "required": true,
+            "in": "path",
+            "example": "6200e7b2b3cfeca3405f57f0",
+            "description": "error id",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
         "requestBody": {
           "required": true,
           "content": {
@@ -299,7 +596,18 @@
       "delete": {
         "operationId": "SuperAdminsController_deleteClient",
         "summary": "Delete client",
-        "parameters": [],
+        "parameters": [
+          {
+            "name": "clientId",
+            "required": true,
+            "in": "path",
+            "example": "6200e7b2b3cfeca3405f57f0",
+            "description": "error id",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
         "responses": {
           "204": {
             "description": "",
@@ -321,7 +629,71 @@
       "get": {
         "operationId": "WebhookController_getWebhooks",
         "summary": "Get Webhooks",
-        "parameters": [],
+        "parameters": [
+          {
+            "name": "field",
+            "required": false,
+            "in": "query",
+            "example": "_id",
+            "description": "field that you want to find",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "values",
+            "required": false,
+            "in": "query",
+            "example": "[\"6200e7b2b3cfeca3405f57f0\", \"61fd2eecf3f78493727204f0\"]",
+            "description": "JSON array with values that you want to find",
+            "schema": {
+              "type": "array",
+              "items": {
+                "type": "string"
+              }
+            }
+          },
+          {
+            "name": "dateFrom",
+            "required": false,
+            "in": "query",
+            "example": 1649186190881,
+            "description": "UTC time from",
+            "schema": {
+              "type": "number"
+            }
+          },
+          {
+            "name": "dateTo",
+            "required": false,
+            "in": "query",
+            "example": 1649186190881,
+            "description": "UTC time to",
+            "schema": {
+              "type": "number"
+            }
+          },
+          {
+            "name": "limit",
+            "required": false,
+            "in": "query",
+            "example": 100,
+            "description": "limit number",
+            "schema": {
+              "type": "number"
+            }
+          },
+          {
+            "name": "skip",
+            "required": false,
+            "in": "query",
+            "example": 5,
+            "description": "skip number",
+            "schema": {
+              "type": "number"
+            }
+          }
+        ],
         "responses": {
           "200": {
             "description": "",
@@ -376,7 +748,18 @@
       "put": {
         "operationId": "WebhookController_updateWebhook",
         "summary": "Update Webhook",
-        "parameters": [],
+        "parameters": [
+          {
+            "name": "webhookId",
+            "required": true,
+            "in": "path",
+            "example": "6200e7b2b3cfeca3405f57f0",
+            "description": "webhook history id",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
         "requestBody": {
           "required": true,
           "content": {
@@ -406,7 +789,18 @@
       "delete": {
         "operationId": "WebhookController_deleteWebhook",
         "summary": "Delete Webhook",
-        "parameters": [],
+        "parameters": [
+          {
+            "name": "webhookId",
+            "required": true,
+            "in": "path",
+            "example": "6200e7b2b3cfeca3405f57f0",
+            "description": "webhook history id",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
         "responses": {
           "204": {
             "description": "",
@@ -441,11 +835,55 @@
       },
       "CreateUserDto": {
         "type": "object",
-        "properties": {}
+        "properties": {
+          "algorithm": {
+            "type": "string",
+            "example": "Bipartite Subset",
+            "description": "search algorithm for this user",
+            "default": "Bipartite Subset"
+          },
+          "optionalParams": {
+            "type": "object",
+            "example": {
+              "email": "my user email",
+              "phone": "+111111111"
+            },
+            "description": "all user optional information",
+            "default": "Bipartite Subset"
+          },
+          "externalId": {
+            "type": "string",
+            "example": "2536045",
+            "description": "optional external user id",
+            "default": "Bipartite Subset"
+          }
+        }
       },
       "UpdateUserDto": {
         "type": "object",
-        "properties": {}
+        "properties": {
+          "algorithm": {
+            "type": "string",
+            "example": "Bipartite Subset",
+            "description": "search algorithm for this user",
+            "default": "Bipartite Subset"
+          },
+          "optionalParams": {
+            "type": "object",
+            "example": {
+              "email": "my user email",
+              "phone": "+111111111"
+            },
+            "description": "all user optional information",
+            "default": "Bipartite Subset"
+          },
+          "externalId": {
+            "type": "string",
+            "example": "2536045",
+            "description": "optional external user id",
+            "default": "Bipartite Subset"
+          }
+        }
       },
       "String": {
         "type": "object",
@@ -453,7 +891,34 @@
       },
       "CreateUserHistoryDto": {
         "type": "object",
-        "properties": {}
+        "properties": {
+          "lat": {
+            "type": "string",
+            "example": "38.8951",
+            "description": "lat coordinate"
+          },
+          "lon": {
+            "type": "string",
+            "example": "-77.0364",
+            "description": "lon coordinate"
+          },
+          "userId": {
+            "type": "string",
+            "example": "6200e7b2b3cfeca3405f57f0",
+            "description": "user id"
+          },
+          "time": {
+            "type": "number",
+            "example": 1649186190881,
+            "description": "UTC time"
+          }
+        },
+        "required": [
+          "lat",
+          "lon",
+          "userId",
+          "time"
+        ]
       },
       "UserHistorys": {
         "type": "object",
@@ -461,7 +926,34 @@
       },
       "LocationStepsDto": {
         "type": "object",
-        "properties": {}
+        "properties": {
+          "locationId": {
+            "type": "string",
+            "example": "6200e7b2b3cfeca3405f57f0",
+            "description": "location id"
+          },
+          "lat": {
+            "type": "string",
+            "example": "31.8951",
+            "description": "lat coordinate"
+          },
+          "lon": {
+            "type": "string",
+            "example": "-71.0364",
+            "description": "lon coordinate"
+          },
+          "step": {
+            "type": "number",
+            "example": 0,
+            "description": "step number"
+          }
+        },
+        "required": [
+          "locationId",
+          "lat",
+          "lon",
+          "step"
+        ]
       },
       "Errors": {
         "type": "object",
@@ -473,11 +965,31 @@
       },
       "CreateClientDto": {
         "type": "object",
-        "properties": {}
+        "properties": {
+          "name": {
+            "type": "string",
+            "example": "My cool client",
+            "description": "client name"
+          }
+        },
+        "required": [
+          "name"
+        ]
       },
       "UpdateClientDto": {
         "type": "object",
-        "properties": {}
+        "properties": {
+          "name": {
+            "type": "string",
+            "example": "My cool client",
+            "description": "new client name"
+          },
+          "apiKey": {
+            "type": "string",
+            "example": "783fe2cf-329e-40bf-812b-1830ba3c80bb",
+            "description": "new client apikey"
+          }
+        }
       },
       "WebHooks": {
         "type": "object",
@@ -485,11 +997,48 @@
       },
       "CreateWebhookDto": {
         "type": "object",
-        "properties": {}
+        "properties": {
+          "url": {
+            "type": "string",
+            "example": "https://your.domain/webhooks",
+            "description": "POST url to server that listen webhooks"
+          },
+          "event": {
+            "type": "string",
+            "example": "Error Created",
+            "description": "webhook name"
+          },
+          "name": {
+            "type": "string",
+            "example": "error_created",
+            "description": "your webhook name"
+          }
+        },
+        "required": [
+          "url",
+          "event",
+          "name"
+        ]
       },
       "UpdateWebhookDto": {
         "type": "object",
-        "properties": {}
+        "properties": {
+          "url": {
+            "type": "string",
+            "example": "https://your.domain/webhooks",
+            "description": "POST url to server that listen webhooks"
+          },
+          "event": {
+            "type": "string",
+            "example": "Error Created",
+            "description": "webhook name"
+          },
+          "name": {
+            "type": "string",
+            "example": "error_created",
+            "description": "your webhook name"
+          }
+        }
       }
     }
   }

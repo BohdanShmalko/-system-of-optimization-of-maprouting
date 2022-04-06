@@ -9,10 +9,13 @@ export class Clients {
     @Prop({ ref: ECollections.SuperAdmins, required: true })
     adminCreated: MongooseSchema.Types.ObjectId;
 
-    @Prop({ required: true })
+    @Prop({ ref: ECollections.SuperAdmins, required: true })
+    adminUpdated: MongooseSchema.Types.ObjectId;
+
+    @Prop({ required: true, unique: true })
     name: string;
 
-    @Prop({ required: true })
+    @Prop({ required: true, unique: true })
     apiKey: string;
 }
 

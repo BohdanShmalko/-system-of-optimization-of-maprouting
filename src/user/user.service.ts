@@ -57,7 +57,7 @@ export class UserService {
   * @property {Object}  param  - user id dto
   * @returns {string} delete status
   */
-   deleteUser(req, param: ClientIdDto): Promise<string> {
+   deleteUser(req, param: UserIdDto): Promise<string> {
     return;
   }
 }
