@@ -1,3 +1,5 @@
+import { CoreModule } from '@common';
+import { ErrorsModule } from '@db';
 import { Module } from '@nestjs/common';
 import { ErrorController } from './error.controller';
 import { ErrorService } from './error.service';
@@ -8,7 +10,10 @@ import { ErrorService } from './error.service';
 * @kind module
 */
 @Module({
-  imports: [],
+  imports: [
+    ErrorsModule,
+    CoreModule,
+  ],
   controllers: [ErrorController],
   providers: [ErrorService],
 })

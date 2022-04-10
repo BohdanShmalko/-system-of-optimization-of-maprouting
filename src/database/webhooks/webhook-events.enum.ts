@@ -1,3 +1,15 @@
 export enum EWebhookEvents {
-
+    ClientUpdated = 'Client Updated',
+    UserCreated = ' User Created',
+    UserUpdated = 'User Updated',
+    UserDeleted = 'User Deleted',
+    WebhookCreated = 'Webhook Created',
+    WebhookUpdated = 'Webhook Updated',
+    WebhookDeleted = 'Webhook Deleted',
+    UserHistoryCreated = 'UserHistory Created',
+    UserHistoryDeleted = 'UserHistory Deleted',
+    ErrorCreated = 'Error Created',
+    ErrorDeleted = 'Error Deleted',
+    UserRoomsCreated = 'UserRooms Created',
+    UserRoomsDeleted = 'UserRooms Deleted',
 }

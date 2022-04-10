@@ -1,6 +1,19 @@
-import { ClientIdDto, CreateUserDto, GetUsersDto, UpdateUserDto, UserIdDto } from '@common';
-import { Users } from '@db';
-import { Injectable } from '@nestjs/common';
+import { 
+  CoreService, 
+  CreateUserDto, 
+  EHttpExceptionMessage, 
+  GetUsersDto, 
+  UpdateUserDto, 
+  UserIdDto 
+} from '@common';
+import { 
+  ErrorsService,
+  UserHistorysService, 
+  UserRoomsService, 
+  Users, 
+  UsersService 
+} from '@db';
+import { HttpException, HttpStatus, Injectable } from '@nestjs/common';
 
 /**
 * User service class
@@ -9,8 +22,13 @@ import { Injectable } from '@nestjs/common';
 */
 @Injectable()
 export class UserService {
-  constructor() {
-  }
+  constructor(
+    private readonly usersService: UsersService,
+    private readonly core: CoreService,
+    private readonly userRoomsService: UserRoomsService,
+    private readonly userHistoryService: UserHistorysService,
+    private readonly errorsService: ErrorsService,
+  ) {}
 
   /**
   * Get users
@@ -20,8 +38,14 @@ export class UserService {
   * @property {Object}  req  - req object
   * @returns {Object} users documents
   */
-  getUsers(req, query: GetUsersDto): Promise<Users[]> {
-      return;
+  async getUsers(req, query: GetUsersDto): Promise<Users[]> {
+    const searchObj = this.core.buildSearchPipeline(req.client, query);
+    try {
+        const result = await this.usersService.search({...searchObj, select: { clientId: -1 }});
+        return result;
+    }catch(e) {
+        throw new HttpException(EHttpExceptionMessage.InvalidQuery, HttpStatus.BAD_REQUEST);
+    }
   }
 
   /**
@@ -32,8 +56,13 @@ export class UserService {
   * @property {Object}  req  - req object
   * @returns {Object} new user document
   */
-  createNewUser(req, dto: CreateUserDto): Promise<Users> {
-    return;
+  async createNewUser(req, dto: CreateUserDto): Promise<Users> {
+    const clientId = req.client.document._id;
+    const newUser = await this.usersService.create({
+      ...dto,
+      clientId,
+    });
+    return newUser;
   }
 
   /**
@@ -45,8 +74,16 @@ export class UserService {
   * @property {Object}  req  - req object
   * @returns {Object} new user document
   */
-  updateUser(req, param: UserIdDto, dto: UpdateUserDto): Promise<Users> {
-    return;
+  async updateUser(req, param: UserIdDto, dto: UpdateUserDto): Promise<Users> {
+    const userId = param.userId;
+    const clientId = req.client.document._id;
+    const existingDocument = await this.usersService.findByIdAndClient(userId, clientId);
+    if(!existingDocument) throw new HttpException(
+      EHttpExceptionMessage.UserNotExistId, 
+      HttpStatus.BAD_REQUEST
+    );
+    const updatedUser = await this.usersService.updateUserById(userId, dto);
+    return updatedUser;
   }
 
   /**
@@ -57,7 +94,18 @@ export class UserService {
   * @property {Object}  param  - user id dto
   * @returns {string} delete status
   */
-   deleteUser(req, param: UserIdDto): Promise<string> {
-    return;
+   async deleteUser(req, param: UserIdDto): Promise<string> {
+    const userId = param.userId;
+    const clientId = req.client.document._id;
+    const existingDocument = await this.usersService.findByIdAndClient(userId, clientId);
+    if(!existingDocument) throw new HttpException(
+      EHttpExceptionMessage.UserNotExistId, 
+      HttpStatus.BAD_REQUEST
+    );
+    await this.userHistoryService.deleteByUserId(userId);
+    await this.userRoomsService.deleteByUserId(userId);
+    await this.errorsService.deleteByUserId(userId);
+    await this.usersService.deleteById(userId);
+    return 'ok';
   }
 }

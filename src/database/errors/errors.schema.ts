@@ -1,11 +1,12 @@
 import { Prop, Schema, SchemaFactory} from '@nestjs/mongoose';
 import { Document, Schema as MongooseSchema} from 'mongoose';
 import { ECollections} from '../collections.enum';
+import { BaseUsersObject } from '../common/base-users-object.schema';
 
 export type ErrorsDocument = Errors & Document;
 
 @Schema({ collection: ECollections.Errors, timestamps: true })
-export class Errors {
+export class Errors extends BaseUsersObject {
     @Prop({ ref: ECollections.Users, required: true })
     userId: MongooseSchema.Types.ObjectId;
 

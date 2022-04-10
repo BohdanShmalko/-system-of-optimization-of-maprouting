@@ -35,4 +35,7 @@ export * from './webhooks/webhook-events.enum'
 export * from './webhooks-history/webhooks-history.module'
 export * from './webhooks-history/webhooks-history.schema'
 export * from './webhooks-history/webhooks-history.service'
+export * from './common/base-clients-object.schema'
+export * from './common/base-users-object.schema'
+export * from './common/common-db-funcs'
 

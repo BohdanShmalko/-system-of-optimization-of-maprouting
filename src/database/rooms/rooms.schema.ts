@@ -6,8 +6,8 @@ export type RoomsDocument = Rooms & Document;
 
 @Schema({ collection: ECollections.Rooms, timestamps: true })
 export class Rooms {
-    @Prop({ required: true, default: true })
-    twoUsers: boolean;
+    @Prop({})
+    twoUsers!: boolean;
 }
 
 /**

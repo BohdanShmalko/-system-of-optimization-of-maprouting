@@ -1,3 +1,5 @@
+import { CoreModule } from '@common';
+import { LocationsModule, LocationStepsModule, UserHistorysModule } from '@db';
 import { Module } from '@nestjs/common';
 import { LocationController } from './location.controller';
 import { LocationService } from './location.service';
@@ -8,7 +10,12 @@ import { LocationService } from './location.service';
 * @kind module
 */
 @Module({
-  imports: [],
+  imports: [
+    LocationsModule,
+    LocationStepsModule,
+    UserHistorysModule,
+    CoreModule,
+  ],
   controllers: [LocationController],
   providers: [LocationService],
 })

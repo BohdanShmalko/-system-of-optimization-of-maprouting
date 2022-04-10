@@ -1,12 +1,23 @@
 import { 
     AuthService, 
     ClientIdDto, 
+    CoreService, 
     CreateClientDto, 
     EHttpExceptionMessage, 
     GetClientDto, 
     UpdateClientDto 
 } from '@common';
-import { Clients, ClientsService, SuperAdminsService } from '@db';
+import { 
+    Clients, 
+    ClientsService, 
+    ErrorsService, 
+    SuperAdminsService, 
+    UserHistorysService,
+    UserRoomsService,
+    UsersService,
+    WebHooksHistoryService,
+    WebHooksService
+} from '@db';
 import { HttpException, HttpStatus, Injectable } from '@nestjs/common';
 
 /**
@@ -19,7 +30,14 @@ export class SuperAdminsApiService {
     constructor(
         private readonly superAdminsService: SuperAdminsService,
         private readonly clientsService: ClientsService,
-        private readonly authModule: AuthService,
+        private readonly authService: AuthService,
+        private readonly core: CoreService,
+        private readonly webhooksService: WebHooksService,
+        private readonly webhooksHistoryService: WebHooksHistoryService,
+        private readonly usersService: UsersService,
+        private readonly userRoomsService: UserRoomsService,
+        private readonly userHistoryService: UserHistorysService,
+        private readonly errorsService: ErrorsService,
     ) {}
 
     /**
@@ -30,8 +48,14 @@ export class SuperAdminsApiService {
     * @property {Object}  req  - req object
     * @returns {Object} clients documents
     */
-     getClients(req, query: GetClientDto): Promise<Clients[]> {
-        return;
+     async getClients(req, query: GetClientDto): Promise<Clients[]> {
+        const searchObj = this.core.buildSearchPipeline(req.client, query);
+        try {
+            const result = await this.clientsService.search(searchObj);
+            return result;
+        }catch(e) {
+            throw new HttpException(EHttpExceptionMessage.InvalidQuery, HttpStatus.BAD_REQUEST);
+        }
     }
 
     /**
@@ -53,7 +77,7 @@ export class SuperAdminsApiService {
             ...dto,
             adminCreated: adminId,
             adminUpdated: adminId,
-            apiKey: this.authModule.generateApiKey(),
+            apiKey: this.authService.generateApiKey(),
         });
         return newClient;
     }
@@ -108,6 +132,12 @@ export class SuperAdminsApiService {
             EHttpExceptionMessage.ClientNotExistApiKey, 
             HttpStatus.BAD_REQUEST
         );
+        await this.errorsService.deleteByClientId(clientId);
+        await this.userHistoryService.deleteByClientId(clientId);
+        await this.userRoomsService.deleteByClientId(clientId);
+        await this.usersService.deleteByClientId(clientId);
+        await this.webhooksHistoryService.deleteByClientId(clientId);
+        await this.webhooksService.deleteByClientId(clientId);
         await this.clientsService.deleteById(clientId);
         return 'ok';
     }

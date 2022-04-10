@@ -1,6 +1,7 @@
-import { UserHistorys } from '@db';
+import { LocationsService, LocationStepsService, UserHistorys, UserHistorysService } from '@db';
 import { Injectable } from '@nestjs/common';
 import { 
+  CoreService,
   CreateUserHistoryDto, 
   GetLocationDto, 
   GetUserHistorysDto, 
@@ -14,6 +15,13 @@ import {
 */
 @Injectable()
 export class LocationService {
+
+  constructor(
+    private readonly locationsService: LocationsService,
+    private readonly locationStepsService: LocationStepsService,
+    private readonly userHistoryService: UserHistorysService,
+    private readonly core: CoreService,
+  ){}
 
   /**
   * Save user location in database

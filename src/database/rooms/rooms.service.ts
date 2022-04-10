@@ -1,6 +1,6 @@
 import { Injectable } from '@nestjs/common';
 import { InjectModel } from '@nestjs/mongoose';
-import { Model } from 'mongoose';
+import { Model, ObjectId } from 'mongoose';
 import { Rooms, RoomsDocument } from './rooms.schema';
 
 /**
@@ -14,5 +14,13 @@ export class RoomsService {
         @InjectModel(Rooms.name)
         protected model: Model<RoomsDocument>,
     ) {
+    }
+
+    async create(dto: Rooms): Promise<Rooms> {
+        return this.model.create(dto);
+    }
+
+    async findById(_id: string | ObjectId) {
+        return this.model.findOne({ _id });
     }
 }

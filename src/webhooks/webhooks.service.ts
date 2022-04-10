@@ -1,6 +1,7 @@
-import { ClientIdDto, CreateWebhookDto, GetWebhooksDto, UpdateWebhookDto, WebhookIdDto } from '@common';
-import { WebHooks } from '@db';
-import { Injectable } from '@nestjs/common';
+import { ClientIdDto, CoreService, CreateWebhookDto, EHttpExceptionMessage, GetWebhooksDto, UpdateWebhookDto, WebhookIdDto } from '@common';
+import { WebHooks, WebHooksHistoryService, WebHooksService } from '@db';
+import { HttpException, HttpStatus, Injectable } from '@nestjs/common';
+const URL = require("url").URL;
 
 /**
 * Webhook service class
@@ -9,7 +10,11 @@ import { Injectable } from '@nestjs/common';
 */
 @Injectable()
 export class WebhookService {
-  constructor() {
+  constructor(
+    private readonly webhookService: WebHooksService,
+    private readonly webhookHistoryService: WebHooksHistoryService,
+    private readonly core: CoreService,
+  ) {
   }
 
   /**
@@ -20,8 +25,14 @@ export class WebhookService {
   * @property {Object}  req  - req object
   * @returns {Object} Webhooks documents
   */
-  getWebhooks(req, query: GetWebhooksDto): Promise<WebHooks[]> {
-      return;
+  async getWebhooks(req, query: GetWebhooksDto): Promise<WebHooks[]> {
+    const searchObj = this.core.buildSearchPipeline(req.client, query);
+    try {
+        const result = await this.webhookService.search({...searchObj, select: { clientId: -1 }});
+        return result;
+    }catch(e) {
+        throw new HttpException(EHttpExceptionMessage.InvalidQuery, HttpStatus.BAD_REQUEST);
+    }
   }
 
   /**
@@ -32,8 +43,26 @@ export class WebhookService {
   * @property {Object}  req  - req object
   * @returns {Object} new Webhook document
   */
-  createNewWebhook(req, dto: CreateWebhookDto): Promise<WebHooks> {
-    return;
+  async createNewWebhook(req, dto: CreateWebhookDto): Promise<WebHooks> {
+    const clientId = req.client.document._id;
+    const existWebhook = await this.webhookService.findByUrlEventClient({ 
+      url: dto.url,
+      event: dto.event,
+      clientId,
+    });
+    if(existWebhook) throw new HttpException(
+      EHttpExceptionMessage.WebHookExist, 
+      HttpStatus.BAD_REQUEST
+    );
+    if(!this.isValidUrl(dto.url)) throw new HttpException(
+      EHttpExceptionMessage.InvalidUrl, 
+      HttpStatus.BAD_REQUEST
+    );
+    const newWebhook = await this.webhookService.create({
+      ...dto,
+      clientId,
+    })
+    return newWebhook;
   }
 
   /**
@@ -45,8 +74,20 @@ export class WebhookService {
   * @property {Object}  req  - req object
   * @returns {Object} new Webhook document
   */
-  updateWebhook(req, param: WebhookIdDto, dto: UpdateWebhookDto): Promise<WebHooks> {
-    return;
+  async updateWebhook(req, param: WebhookIdDto, dto: UpdateWebhookDto): Promise<WebHooks> {
+    const webhookId = param.webhookId;
+    const clientId = req.client.document._id;
+    const existingDocument = await this.webhookService.findByIdAndClient(webhookId, clientId);
+    if(!existingDocument) throw new HttpException(
+      EHttpExceptionMessage.WebHookNotExistId, 
+      HttpStatus.BAD_REQUEST
+    );
+    if(dto.url && !this.isValidUrl(dto.url)) throw new HttpException(
+      EHttpExceptionMessage.InvalidUrl, 
+      HttpStatus.BAD_REQUEST
+    );
+    const updatedUser = await this.webhookService.updateById(webhookId, dto);
+    return updatedUser;
   }
 
   /**
@@ -57,7 +98,25 @@ export class WebhookService {
   * @property {Object}  param  - Webhook id dto
   * @returns {string} delete status
   */
-   deleteWebhook(req, param: WebhookIdDto): Promise<string> {
-    return;
+  async deleteWebhook(req, param: WebhookIdDto): Promise<string> {
+    const webhookId = param.webhookId;
+    const clientId = req.client.document._id;
+    const existingDocument = await this.webhookService.findByIdAndClient(webhookId, clientId);
+    if(!existingDocument) throw new HttpException(
+      EHttpExceptionMessage.WebHookNotExistId, 
+      HttpStatus.BAD_REQUEST
+    );
+    await this.webhookHistoryService.deleteByWebhookId(webhookId);
+    await this.webhookService.deleteById(webhookId);
+    return 'ok';
   }
+
+  private isValidUrl(s) {
+    try {
+      new URL(s);
+      return true;
+    } catch (err) {
+      return false;
+    }
+  };
 }

@@ -1,5 +1,14 @@
-import { AuthModule } from '@common';
-import { ClientsModule, SuperAdminsModule } from '@db';
+import { AuthModule, CoreModule } from '@common';
+import { 
+  ClientsModule, 
+  ErrorsModule, 
+  SuperAdminsModule, 
+  UserHistorysModule, 
+  UserRoomsModule, 
+  UsersModule, 
+  WebHooksHistoryModule, 
+  WebHooksModule 
+} from '@db';
 import { Module } from '@nestjs/common';
 import { SuperAdminsController } from './super-admins.controller';
 import { SuperAdminsApiService } from './super-admins.service';
@@ -13,6 +22,13 @@ import { SuperAdminsApiService } from './super-admins.service';
   imports: [
     SuperAdminsModule,
     ClientsModule,
+    WebHooksModule,
+    WebHooksHistoryModule,
+    UsersModule,
+    UserRoomsModule,
+    UserHistorysModule,
+    ErrorsModule,
+    CoreModule,
     AuthModule,
   ],
   controllers: [SuperAdminsController],

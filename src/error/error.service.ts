@@ -1,6 +1,6 @@
-import { ErrorIdDto, GetErrorsDto } from '@common';
-import { Errors } from '@db';
-import { Injectable } from '@nestjs/common';
+import { CoreService, EHttpExceptionMessage, ErrorIdDto, GetErrorsDto } from '@common';
+import { Errors, ErrorsService } from '@db';
+import { HttpException, HttpStatus, Injectable } from '@nestjs/common';
 
 /**
 * Error service class
@@ -9,7 +9,10 @@ import { Injectable } from '@nestjs/common';
 */
 @Injectable()
 export class ErrorService {
-    constructor() {
+    constructor(
+      private readonly errorsService: ErrorsService,
+      private readonly core: CoreService,
+    ) {
     }
     /**
     * Get errors
@@ -19,8 +22,14 @@ export class ErrorService {
     * @property {Object}  req  - req object
     * @returns {Object} errors documents
     */
-    getErrors(req, query: GetErrorsDto): Promise<Errors[]> {
-      return;
+    async getErrors(req, query: GetErrorsDto): Promise<Errors[]> {
+      const searchObj = this.core.buildSearchPipeline(req.client, query);
+    try {
+        const result = await this.errorsService.search({...searchObj, select: { clientId: -1 }});
+        return result;
+    }catch(e) {
+        throw new HttpException(EHttpExceptionMessage.InvalidQuery, HttpStatus.BAD_REQUEST);
+    }
     }
 
    /**
@@ -31,7 +40,15 @@ export class ErrorService {
    * @property {Object}  param  - error id dto
    * @returns {string} delete status
    */
-    deleteError(req, param: ErrorIdDto): Promise<string> {
-        return;
+    async deleteError(req, param: ErrorIdDto): Promise<string> {
+      const errorId = param.errorId;
+      const clientId = req.client.document._id;
+      const existingDocument = await this.errorsService.findByIdAndClient(errorId, clientId);
+      if(!existingDocument) throw new HttpException(
+        EHttpExceptionMessage.ErrorNotExist, 
+        HttpStatus.BAD_REQUEST
+      );
+      await this.errorsService.deleteById(errorId);
+      return 'ok';
     }
 }

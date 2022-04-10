@@ -28,10 +28,12 @@ import { WebHooks, WebHooksHistory } from '@db';
 @Controller('webhookshistory')
 export class WebhookHistoryController {
   constructor(private readonly service: WebhookHistoryService) {
+    this.service.webhookHistoryWatcher();
+    this.service.clientsWatcher();
+    this.service.usersRoomsWatcher();
     this.service.usersWatcher();
     this.service.webhookWatcher();
     this.service.usersHistoryWatcher();
-    this.service.locationWatcher();
     this.service.errorsWatcher();
   }
 
@@ -57,7 +59,7 @@ export class WebhookHistoryController {
 
   /**
   * Resend webhook
-  * @name getWebhooksHistory
+  * @name resendWebhook
   * @kind event
   * @property {Object}  query  - query object dto
   * @property {Object}  req  - req object

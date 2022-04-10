@@ -12,6 +12,17 @@ export enum ESort {
     ASC = 'asc',
 }
 
+/**
+* Sort fields variants Enum
+* @name ESortFields
+* @kind namespace
+*/
+export enum ESortFields {
+    ID = '_id',
+    CREATED_AT = 'created_at',
+    UPDATED_AT = 'updated_at',
+}
+
 
 /**
 * Base search dto
@@ -28,6 +39,16 @@ export class BaseSearchDto {
     @IsString()
     @IsEnum(ESort)
     sort = ESort.DESC;
+
+    @ApiPropertyOptional({
+        example: 'created_at',
+        description: 'sort by this field (_id, created_at, updated_at)',
+        default: ESortFields.ID
+    })
+    @IsOptional()
+    @IsString()
+    @IsEnum(ESortFields)
+    sortField = ESortFields.ID;
 
     @ApiPropertyOptional({
         example: '_id',
@@ -54,7 +75,7 @@ export class BaseSearchDto {
 
     @ApiPropertyOptional({
         example: 1649186190881,
-        description: 'UTC time from',
+        description: 'UTC time from (created_at)',
     })
     @IsOptional()
     @Transform(({ value }) => parseInt(value, 10))
@@ -63,7 +84,7 @@ export class BaseSearchDto {
 
     @ApiPropertyOptional({
         example: 1649186190881,
-        description: 'UTC time to',
+        description: 'UTC time to (created_at)',
     })
     @IsOptional()
     @Transform(({ value }) => parseInt(value, 10))

@@ -11,6 +11,7 @@ import {
 import { WsEnum } from './ws.enum';
 import { Socket, Server } from 'socket.io';
 import { WsService } from './ws.service';
+import { CreateConnectionDto, DeviceErrorDto, JoinRoomDto, UserLocationTimeDto, WsResponseDto, } from '@common';
 
 /**
 * Websocket Gateway
@@ -18,7 +19,7 @@ import { WsService } from './ws.service';
 * @kind class
 */
 @WebSocketGateway(7000, { path: '/ws', serveClient: true, namespace: '/' })
-export class WsGateway implements OnGatewayInit, OnGatewayConnection, OnGatewayDisconnect{
+export class WsGateway implements OnGatewayInit{
 
      /**
      * Websocket server
@@ -49,11 +50,13 @@ export class WsGateway implements OnGatewayInit, OnGatewayConnection, OnGatewayD
      * @name handleConnection
      * @kind event
      * @property {Object}  client  - ws client
-     * @property {Object[]}  args  - data from user
+     * @property {Object}  message  - data from user
+     * @property {Object}  wss  - websocket server
      * @returns {Object} message for user
      */
-    handleConnection(client: Socket, ...args: any[]): any {
-        return this.wsService.handleConnection(client, args, this.wss);
+    @SubscribeMessage(WsEnum.ServerConnect)
+    handleConnection(client: Socket, message: CreateConnectionDto){
+        return this.wsService.handleConnection(client, message, this.wss);
     }
 
     /**
@@ -61,9 +64,12 @@ export class WsGateway implements OnGatewayInit, OnGatewayConnection, OnGatewayD
      * @name handleDisconnect
      * @kind event
      * @property {Object}  client  - ws client
+     * @property {Object}  message  - data from user
+     * @returns {Object} message for user
      */
-    handleDisconnect(client: Socket): any {
-        return this.wsService.handleDisconnect(client, this.wss);
+     @SubscribeMessage(WsEnum.ServerDisconnect)
+     handleDisconnect(client: Socket, message: CreateConnectionDto){
+        return this.wsService.handleDisconnect(client, message, this.wss);
     }
 
     /**
@@ -75,20 +81,59 @@ export class WsGateway implements OnGatewayInit, OnGatewayConnection, OnGatewayD
      * @returns {Object} message for user
      */
     @SubscribeMessage(WsEnum.ServerErrorDevice)
-    handleErrorDevice(client: Socket, message): Promise<WsResponse<string>> {
+    handleErrorDevice(client: Socket, message: DeviceErrorDto){
         return this.wsService.handleErrorDevice(client, message, this.wss);
     }
 
     /**
-     * Update user location for all users in the range
-     * @name handleUpdateLocation
-     * @kind event
-     * @property {Object}  client  - ws client
-     * @property {Object}  message  - data from user
-     * @returns {Object} message for user
-     */
+    * Update user location for all users in the range
+    * @name handleUpdateLocation
+    * @kind event
+    * @property {Object}  client  - ws client
+    * @property {Object}  message  - data from user
+    * @returns {Object} message for user
+    */
     @SubscribeMessage(WsEnum.ServerUpdateLocation)
-    handleUpdateLocation(client: Socket, message): Promise<WsResponse<string>> {
-        return this.wsService.handleUpdateLocation(client, message, this. wss);
+    handleUpdateLocation(client: Socket, message: UserLocationTimeDto){
+        return this.wsService.handleUpdateLocation(client, message, this.wss);
+    }
+
+    /**
+    * Create users room
+    * @name handleCreateRoom
+    * @kind event
+    * @property {Object}  client  - ws client
+    * @property {Object}  message  - data from user
+    * @returns {Object} message for user
+    */
+     @SubscribeMessage(WsEnum.ServerCreateRoom)
+    public async handleCreateRoom(client: Socket, message: CreateConnectionDto){
+        return this.wsService.handleCreateRoom(client, message, this.wss);
+    }
+  
+    /**
+    * Join for another room
+    * @name handleJoinToRoom
+    * @kind event
+    * @property {Object}  client  - ws client
+    * @property {Object}  message  - data from user
+    * @returns {Object} message for user
+    */
+    @SubscribeMessage(WsEnum.ServerJoinRoom)
+    public async handleJoinToRoom(client: Socket, message: JoinRoomDto){
+        return this.wsService.handleJoinToRoom(client, message, this.wss);
+    }
+
+    /**
+    * Leave from room
+    * @name handleLeaveFromRoom
+    * @kind event
+    * @property {Object}  client  - ws client
+    * @property {Object}  message  - data from user
+    * @returns {Object} message for user
+    */
+    @SubscribeMessage(WsEnum.ServerJoinRoom)
+    public async handleLeaveFromRoom(client: Socket, message: JoinRoomDto){
+        return this.wsService.handleLeaveFromRoom(client, message, this.wss);
     }
 }

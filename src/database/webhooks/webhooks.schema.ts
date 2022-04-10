@@ -1,15 +1,13 @@
 import { Prop, Schema, SchemaFactory} from '@nestjs/mongoose';
 import { Document, Schema as MongooseSchema} from 'mongoose';
 import { ECollections} from '../collections.enum';
+import { BaseClientsObject } from '../common/base-clients-object.schema';
 import { EWebhookEvents } from './webhook-events.enum';
 
 export type WebHooksDocument = WebHooks & Document;
 
 @Schema({ collection: ECollections.WebHooks, timestamps: true })
-export class WebHooks {
-    @Prop({ ref: ECollections.Clients, required: true })
-    clientId: MongooseSchema.Types.ObjectId;
-
+export class WebHooks extends BaseClientsObject {
     @Prop({ required: true })
     url: string;
 
