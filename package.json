@@ -23,7 +23,8 @@
     "docs:api": "npm run build && jsdoc2md --files ./dist/**/*.js > docs/modules/README.md",
     "docs:dev": "npm run docs:api && npx vuepress dev docs",
     "docs:build": "npm run docs:api && npx vuepress build docs",
-    "publish": "publish.sh"
+    "publish": "publish.sh",
+    "serverTest": "node ./test/webhooks/testServer.js"
   },
   "dependencies": {
     "@nestjs/axios": "^0.0.7",

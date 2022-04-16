@@ -1,10 +1,10 @@
 import { Module } from '@nestjs/common';
-import { UsersServiceMock } from './users.service.mock';
+import { UsersService } from './users.service.mock';
 import { MongoModuleMock } from '../mongo/mongo.module.mock'
 
 @Module({
   imports: [MongoModuleMock],
-  providers: [UsersServiceMock],
-  exports: [UsersServiceMock],
+  providers: [UsersService],
+  exports: [UsersService],
 })
 export class UsersMock {}

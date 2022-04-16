@@ -28,7 +28,14 @@ export class WebhookService {
   async getWebhooks(req, query: GetWebhooksDto): Promise<WebHooks[]> {
     const searchObj = this.core.buildSearchPipeline(req.client, query);
     try {
-        const result = await this.webhookService.search({...searchObj, select: { clientId: -1 }});
+        const result = await this.webhookService.search({...searchObj, select: 
+          { 
+            url: 1,
+            event: 1,
+            name: 1,
+            userId: 1,
+          }
+        });
         return result;
     }catch(e) {
         throw new HttpException(EHttpExceptionMessage.InvalidQuery, HttpStatus.BAD_REQUEST);

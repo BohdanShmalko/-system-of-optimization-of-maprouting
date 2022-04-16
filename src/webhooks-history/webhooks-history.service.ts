@@ -2,6 +2,7 @@ import { CoreService, EHttpExceptionMessage, GetWebhooksHistoryDto, ResendWebhoo
 import { ClientsService, ErrorsService, EWebhookEvents, UserHistorysService, UserRoomsService, UsersService, WebHooksHistory, WebHooksHistoryService, WebHooksService } from '@db';
 import { HttpService } from '@nestjs/axios';
 import { HttpException, HttpStatus, Injectable } from '@nestjs/common';
+import { ObjectId } from 'mongoose';
 const urlModule = require('url');
 
 /**
@@ -34,7 +35,14 @@ export class WebhookHistoryService {
     async getWebhooksHistory(req, query: GetWebhooksHistoryDto): Promise<WebHooksHistory[]> {
         const searchObj = this.core.buildSearchPipeline(req.client, query);
         try {
-            const result = await this.webhookHistoryService.search({...searchObj, select: { clientId: -1 }});
+            const result = await this.webhookHistoryService.search({...searchObj, select: 
+                { 
+                    webhookId: 1,
+                    data: 1,
+                    success: 1,
+                    userId: 1,
+                }
+            });
             return result;
         }catch(e) {
             throw new HttpException(EHttpExceptionMessage.InvalidQuery, HttpStatus.BAD_REQUEST);
@@ -101,35 +109,15 @@ export class WebhookHistoryService {
     * @kind function
     */
     usersWatcher() {
-        this.usersService.createWatcher().on('change', async (next) => {
-            try{
-                const user = await this.usersService.findById(next.documentKey._id);
-                if (next.operationType === 'insert') {
-                    const webhooks: any[] = await this.webhookService.findByEventClient(
-                        user.clientId,
-                        EWebhookEvents.UserCreated,
-                    )
-                    for(const webhook of webhooks) {
-                        await this.webhookHistoryService.create({
-                            clientId: user.clientId,
-                            success: false,
-                            webhookId: webhook._id,
-                            data: { 
-                                event: EWebhookEvents.UserCreated,
-                                name: webhook.name,
-                                user,
-                            }
-                        });
-                    }
-                } else if(next.operationType === 'update') {
-                    //next.documentKey._id;
-                } else if(next.object === 'delete') {
-                    //next.documentKey._id;
-                }
-            }catch(e) {
-                console.log(e);
+        this.usersService.createWatcher().on('change', this.watcherHandler(
+            this.usersService, 
+            'user', 
+            {
+                insert: EWebhookEvents.UserCreated,
+                update: EWebhookEvents.UserUpdated,
+                delete: EWebhookEvents.UserDeleted,
             }
-        })
+        ))
     }
 
     /**
@@ -138,19 +126,15 @@ export class WebhookHistoryService {
     * @kind function
     */
     webhookWatcher() {
-        this.webhookService.createWatcher().on('change', async (next) => {
-            try{
-                if (next.operationType === 'insert') {
-                    //next.fullDocument;
-                } else if(next.operationType === 'update') {
-                    //next.documentKey._id;
-                } else if(next.object === 'delete') {
-                    //next.documentKey._id;
-                }
-            }catch(e) {
-                console.log(e);
+        this.webhookService.createWatcher().on('change', this.watcherHandler(
+            this.webhookService, 
+            'webhook', 
+            {
+                insert: EWebhookEvents.WebhookCreated,
+                update: EWebhookEvents.WebhookUpdated,
+                delete: EWebhookEvents.WebhookDeleted,
             }
-        })
+        ))
     }
 
     /**
@@ -159,17 +143,14 @@ export class WebhookHistoryService {
     * @kind function
     */
     usersHistoryWatcher() {
-        this.userHistorysService.createWatcher().on('change', async (next) => {
-            try{
-                if (next.operationType === 'insert') {
-                    //next.fullDocument;
-                } else if(next.object === 'delete') {
-                    //next.documentKey._id;
-                }
-            }catch(e) {
-                console.log(e);
+        this.userHistorysService.createWatcher().on('change', this.watcherHandler(
+            this.userHistorysService, 
+            'userHistory', 
+            {
+                insert: EWebhookEvents.UserHistoryCreated,
+                delete: EWebhookEvents.UserHistoryDeleted,
             }
-        })
+        ))
     }
 
     /**
@@ -178,17 +159,14 @@ export class WebhookHistoryService {
     * @kind function
     */
     errorsWatcher() {
-        this.errorsService.createWatcher().on('change', async (next) => {
-            try{
-                if (next.operationType === 'insert') {
-                    //next.fullDocument;
-                } else if(next.object === 'delete') {
-                    //next.documentKey._id;
-                }
-            }catch(e) {
-                console.log(e);
+        this.errorsService.createWatcher().on('change', this.watcherHandler(
+            this.errorsService, 
+            'error', 
+            {
+                insert: EWebhookEvents.ErrorCreated,
+                delete: EWebhookEvents.ErrorDeleted,
             }
-        })
+        ))
     }
 
     /**
@@ -197,15 +175,13 @@ export class WebhookHistoryService {
     * @kind function
     */
      clientsWatcher() {
-        this.clientsService.createWatcher().on('change', async (next) => {
-            try{
-                if(next.operationType === 'update') {
-                    //next.documentKey._id;
-                }
-            }catch(e) {
-                console.log(e);
+        this.clientsService.createWatcher().on('change', this.watcherHandler(
+            this.clientsService, 
+            'client', 
+            {
+                update: EWebhookEvents.ClientUpdated,
             }
-        })
+        ))
     }
 
     /**
@@ -214,28 +190,62 @@ export class WebhookHistoryService {
     * @kind function
     */
      usersRoomsWatcher() {
-        this.userRoomsService.createWatcher().on('change', async (next) => {
-            try{
-                if (next.operationType === 'insert') {
-                    //next.fullDocument;
-                } else if(next.object === 'delete') {
-                    //next.documentKey._id;
-                }
-            }catch(e) {
-                console.log(e);
+        this.userRoomsService.createWatcher().on('change', this.watcherHandler(
+            this.userRoomsService, 
+            'userRoom', 
+            {
+                insert: EWebhookEvents.UserRoomsCreated,
+                delete: EWebhookEvents.UserRoomsDeleted,
             }
-        })
+        ))
     }
 
     private async sendWebhook(url, data) {
         const domain = urlModule.parse(url).hostname;
-        if(!domain || domain === 'localhost') 
+        const badLocal = domain === 'localhost' && process.env.USE_LOCAL_WEBHOOK !== 'true';
+        if(!domain || badLocal) 
             return { error: true, message: EHttpExceptionMessage.InvalidDomain };
         try{
-            await this.http.post(url, data);
+            await this.http.post(url, data).toPromise();
             return { error: false };
         }catch(e) {
             return { error: true, message: EHttpExceptionMessage.InvalidWebhookResponse };
+        }
+    }
+
+    private watcherHandler(service: any, name: string, events: any) {
+        return async (next) => {
+            const data = await service.findById(next.documentKey._id);
+            let event;
+            const eventsName = Object.keys(events);
+            try{
+                for(const eventName of eventsName) {
+                    if(next.operationType === eventName){
+                        event = events[eventName];
+                        break;
+                    }
+                }
+                if(event) {
+                    const webhooks: any[] = await this.webhookService.findByEventClient(
+                        data.clientId,
+                        event,
+                    )
+                    for(const webhook of webhooks) {
+                        await this.webhookHistoryService.create({
+                            clientId: data.clientId,
+                            success: false,
+                            webhookId: webhook._id,
+                            data: { 
+                                event,
+                                name: webhook.name,
+                                [name]: data,
+                            }
+                        });
+                    }
+                }
+            }catch(e) {
+                console.log(e);
+            }
         }
     }
 }

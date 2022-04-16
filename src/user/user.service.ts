@@ -41,7 +41,13 @@ export class UserService {
   async getUsers(req, query: GetUsersDto): Promise<Users[]> {
     const searchObj = this.core.buildSearchPipeline(req.client, query);
     try {
-        const result = await this.usersService.search({...searchObj, select: { clientId: -1 }});
+        const result = await this.usersService.search({...searchObj, select: 
+          { 
+            externalId: 1,
+            algorithm: 1,
+            optionalParams: 1,
+          }
+        });
         return result;
     }catch(e) {
         throw new HttpException(EHttpExceptionMessage.InvalidQuery, HttpStatus.BAD_REQUEST);

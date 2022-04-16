@@ -29,7 +29,7 @@ export class CommonDbService {
     }
 
     public findById(_id: string | ObjectId) {
-        return this.model.deleteMany({ _id });
+        return this.model.findOne({ _id });
     }
 
     async findByIdAndClient(_id: string | ObjectId, clientId: string | ObjectId): Promise<any | null> {

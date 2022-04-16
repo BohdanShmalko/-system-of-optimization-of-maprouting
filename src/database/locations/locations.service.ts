@@ -15,4 +15,13 @@ export class LocationsService {
         protected model: Model<LocationsDocument>,
     ) {
     }
+
+    async findByDto(dto) {
+        const res = await this.model.find(dto).sort({ _id: -1 }).limit(1);
+        return !res || !res?.length ? null : res[0];
+    }
+
+    async create(dto: Locations): Promise<LocationsDocument> {
+        return this.model.create(dto);
+    }
 }

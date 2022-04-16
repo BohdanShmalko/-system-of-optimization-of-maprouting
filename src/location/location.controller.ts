@@ -72,7 +72,7 @@ export class LocationController {
    @ApiOperation({ summary: 'Get rout between locations' })
    @ApiResponse({ status: 200, type: () => LocationStepsDto, isArray: true })
    @HttpCode(200)
-   @Get()
+   @Get('route')
    getRoute(
       @Req() req, 
       @Query() query: GetLocationDto,

@@ -70,6 +70,7 @@ export class BaseSearchDto {
             return value;
         }
     })
+    @IsOptional()
     @IsArray()
     values!: any[];
 

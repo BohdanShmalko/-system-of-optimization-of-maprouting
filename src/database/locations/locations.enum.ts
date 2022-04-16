@@ -5,6 +5,8 @@
 */
 export enum EAlgorithms {
     BipartiteSubset = 'Bipartite Subset',
+    Google = 'Google',
+    Here = 'Here',
 }
 
 /**
@@ -13,5 +15,6 @@ export enum EAlgorithms {
 * @kind namespace
 */
 export enum ETransports {
-
+    Foot = 'foot',
+    Car = 'car',
 }

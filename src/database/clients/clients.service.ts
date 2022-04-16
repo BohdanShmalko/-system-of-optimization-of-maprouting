@@ -36,7 +36,6 @@ export class ClientsService extends CommonDbService {
     } 
 
     public async updateClientById(_id: string | ObjectId, document): Promise<Clients | null> {
-        const res = (await this.model.updateOne({ _id }, { $set: document }, { upsert: true })) as any;
-        return res;
+        return this.model.findOneAndUpdate({ _id }, { $set: document }, { returnOriginal: false });
     }
 }

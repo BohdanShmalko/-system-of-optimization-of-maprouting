@@ -84,8 +84,8 @@ export class UserController {
    * @returns {Object} new user document
    */
    @ApiOperation({ summary: 'Update user' })
-   @ApiResponse({ status: 204, type: () => Users })
-   @HttpCode(204)
+   @ApiResponse({ status: 201, type: () => Users })
+   @HttpCode(201)
    @Keys()
    @Put(':userId')
    updateUser(

@@ -1,4 +1,4 @@
-import { CommonDbService } from '@db';
+import { CommonDbService } from '../common/common-db-funcs';
 import { Injectable } from '@nestjs/common';
 import { InjectModel } from '@nestjs/mongoose';
 import { Model, ObjectId } from 'mongoose';
@@ -23,8 +23,7 @@ export class WebHooksHistoryService extends CommonDbService {
     }
 
     async updateById(_id: string | ObjectId, document): Promise<WebHooksHistory> {
-        const res = (await this.model.updateOne({ _id }, { $set: document }, { upsert: true })) as any;
-        return res;
+        return await this.model.findOneAndUpdate({ _id }, { $set: document }, { returnOriginal: false });
     }
 
     async create(dto: WebHooksHistory): Promise<WebHooksHistory> {

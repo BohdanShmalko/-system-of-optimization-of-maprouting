@@ -7,7 +7,8 @@ import { CoreService } from './core.service';
 * @kind module
 */
 @Module({
-  imports: [CoreService],
-  providers: [],
+  imports: [],
+  providers: [CoreService],
+  exports: [CoreService],
 })
 export class CoreModule {}

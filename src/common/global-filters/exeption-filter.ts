@@ -4,6 +4,8 @@ import {
     ArgumentsHost,
     Injectable,
     Logger,
+    HttpStatus,
+    HttpException,
   } from '@nestjs/common';
 
 /**
@@ -19,7 +21,12 @@ import {
     catch(exception: Error, host: ArgumentsHost) {
       const ctx = host.switchToHttp();
       const res = ctx.getResponse();
-      this.logger.log(exception);
-      res.send(exception);
+      const status =
+        exception instanceof HttpException
+          ? exception.getStatus()
+          : HttpStatus.INTERNAL_SERVER_ERROR;
+      res.statusCode = status;
+      console.log(exception);
+      res.send({ message: 'Server error', ...exception});
     }
   }

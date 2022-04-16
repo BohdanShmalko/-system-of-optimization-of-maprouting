@@ -1,5 +1,5 @@
-import { CoreModule } from '@common';
-import { LocationsModule, LocationStepsModule, UserHistorysModule } from '@db';
+import { AlgorithmsModule, CoreModule, LocationStrategyModule } from '@common';
+import { LocationsModule, LocationStepsModule, UserHistorysModule, UsersModule } from '@db';
 import { Module } from '@nestjs/common';
 import { LocationController } from './location.controller';
 import { LocationService } from './location.service';
@@ -14,7 +14,10 @@ import { LocationService } from './location.service';
     LocationsModule,
     LocationStepsModule,
     UserHistorysModule,
+    UsersModule,
     CoreModule,
+    LocationStrategyModule,
+    AlgorithmsModule,
   ],
   controllers: [LocationController],
   providers: [LocationService],

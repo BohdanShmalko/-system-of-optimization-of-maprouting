@@ -84,8 +84,8 @@ export class SuperAdminsController {
     * @returns {Object} new client document
     */
     @ApiOperation({ summary: 'Update client' })
-    @ApiResponse({ status: 204, type: () => Clients })
-    @HttpCode(204)
+    @ApiResponse({ status: 201, type: () => Clients })
+    @HttpCode(201)
     @Keys()
     @Put('client/:clientId')
     updateClient(

@@ -7,9 +7,6 @@ export type ErrorsDocument = Errors & Document;
 
 @Schema({ collection: ECollections.Errors, timestamps: true })
 export class Errors extends BaseUsersObject {
-    @Prop({ ref: ECollections.Users, required: true })
-    userId: MongooseSchema.Types.ObjectId;
-
     @Prop({ required: true })
     message: string;
 }

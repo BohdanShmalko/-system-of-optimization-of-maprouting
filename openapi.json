@@ -34,7 +34,7 @@
             "required": false,
             "in": "query",
             "example": 1649186190881,
-            "description": "UTC time from",
+            "description": "UTC time from (created_at)",
             "schema": {
               "type": "number"
             }
@@ -44,7 +44,7 @@
             "required": false,
             "in": "query",
             "example": 1649186190881,
-            "description": "UTC time to",
+            "description": "UTC time to (created_at)",
             "schema": {
               "type": "number"
             }
@@ -147,7 +147,7 @@
           }
         },
         "responses": {
-          "204": {
+          "201": {
             "description": "",
             "content": {
               "application/json": {
@@ -225,6 +225,95 @@
           "User location API"
         ]
       },
+      "get": {
+        "operationId": "LocationController_getUserLocation",
+        "summary": "Get users locations",
+        "parameters": [
+          {
+            "name": "field",
+            "required": false,
+            "in": "query",
+            "example": "_id",
+            "description": "field that you want to find",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "values",
+            "required": false,
+            "in": "query",
+            "example": "[\"6200e7b2b3cfeca3405f57f0\", \"61fd2eecf3f78493727204f0\"]",
+            "description": "JSON array with values that you want to find",
+            "schema": {
+              "type": "array",
+              "items": {
+                "type": "string"
+              }
+            }
+          },
+          {
+            "name": "dateFrom",
+            "required": false,
+            "in": "query",
+            "example": 1649186190881,
+            "description": "UTC time from (created_at)",
+            "schema": {
+              "type": "number"
+            }
+          },
+          {
+            "name": "dateTo",
+            "required": false,
+            "in": "query",
+            "example": 1649186190881,
+            "description": "UTC time to (created_at)",
+            "schema": {
+              "type": "number"
+            }
+          },
+          {
+            "name": "limit",
+            "required": false,
+            "in": "query",
+            "example": 100,
+            "description": "limit number",
+            "schema": {
+              "type": "number"
+            }
+          },
+          {
+            "name": "skip",
+            "required": false,
+            "in": "query",
+            "example": 5,
+            "description": "skip number",
+            "schema": {
+              "type": "number"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/UserHistorys"
+                  }
+                }
+              }
+            }
+          }
+        },
+        "tags": [
+          "User location API"
+        ]
+      }
+    },
+    "/location/route": {
       "get": {
         "operationId": "LocationController_getRoute",
         "summary": "Get rout between locations",
@@ -343,7 +432,7 @@
             "required": false,
             "in": "query",
             "example": 1649186190881,
-            "description": "UTC time from",
+            "description": "UTC time from (created_at)",
             "schema": {
               "type": "number"
             }
@@ -353,7 +442,7 @@
             "required": false,
             "in": "query",
             "example": 1649186190881,
-            "description": "UTC time to",
+            "description": "UTC time to (created_at)",
             "schema": {
               "type": "number"
             }
@@ -465,7 +554,7 @@
             "required": false,
             "in": "query",
             "example": 1649186190881,
-            "description": "UTC time from",
+            "description": "UTC time from (created_at)",
             "schema": {
               "type": "number"
             }
@@ -475,7 +564,7 @@
             "required": false,
             "in": "query",
             "example": 1649186190881,
-            "description": "UTC time to",
+            "description": "UTC time to (created_at)",
             "schema": {
               "type": "number"
             }
@@ -578,7 +667,7 @@
           }
         },
         "responses": {
-          "204": {
+          "201": {
             "description": "",
             "content": {
               "application/json": {
@@ -658,7 +747,7 @@
             "required": false,
             "in": "query",
             "example": 1649186190881,
-            "description": "UTC time from",
+            "description": "UTC time from (created_at)",
             "schema": {
               "type": "number"
             }
@@ -668,7 +757,7 @@
             "required": false,
             "in": "query",
             "example": 1649186190881,
-            "description": "UTC time to",
+            "description": "UTC time to (created_at)",
             "schema": {
               "type": "number"
             }
@@ -771,7 +860,7 @@
           }
         },
         "responses": {
-          "204": {
+          "201": {
             "description": "",
             "content": {
               "application/json": {
@@ -815,6 +904,125 @@
         },
         "tags": [
           "Webhook API"
+        ]
+      }
+    },
+    "/webhookshistory": {
+      "get": {
+        "operationId": "WebhookHistoryController_getWebhooksHistory",
+        "summary": "Get Webhooks history",
+        "parameters": [
+          {
+            "name": "field",
+            "required": false,
+            "in": "query",
+            "example": "_id",
+            "description": "field that you want to find",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "values",
+            "required": false,
+            "in": "query",
+            "example": "[\"6200e7b2b3cfeca3405f57f0\", \"61fd2eecf3f78493727204f0\"]",
+            "description": "JSON array with values that you want to find",
+            "schema": {
+              "type": "array",
+              "items": {
+                "type": "string"
+              }
+            }
+          },
+          {
+            "name": "dateFrom",
+            "required": false,
+            "in": "query",
+            "example": 1649186190881,
+            "description": "UTC time from (created_at)",
+            "schema": {
+              "type": "number"
+            }
+          },
+          {
+            "name": "dateTo",
+            "required": false,
+            "in": "query",
+            "example": 1649186190881,
+            "description": "UTC time to (created_at)",
+            "schema": {
+              "type": "number"
+            }
+          },
+          {
+            "name": "limit",
+            "required": false,
+            "in": "query",
+            "example": 100,
+            "description": "limit number",
+            "schema": {
+              "type": "number"
+            }
+          },
+          {
+            "name": "skip",
+            "required": false,
+            "in": "query",
+            "example": 5,
+            "description": "skip number",
+            "schema": {
+              "type": "number"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/WebHooksHistory"
+                  }
+                }
+              }
+            }
+          }
+        },
+        "tags": [
+          "Webhook history API"
+        ]
+      },
+      "post": {
+        "operationId": "WebhookHistoryController_resendWebhook",
+        "summary": "Resend Webhook",
+        "parameters": [],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/ResendWebhookDto"
+              }
+            }
+          }
+        },
+        "responses": {
+          "201": {
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/WebHooksHistory"
+                }
+              }
+            }
+          }
+        },
+        "tags": [
+          "Webhook history API"
         ]
       }
     }
@@ -987,9 +1195,17 @@
           "apiKey": {
             "type": "string",
             "example": "783fe2cf-329e-40bf-812b-1830ba3c80bb",
+            "description": "client apikey"
+          },
+          "newApiKey": {
+            "type": "string",
+            "example": "7835682cf-329e-40bf-812b-1830ba3c80bb",
             "description": "new client apikey"
           }
-        }
+        },
+        "required": [
+          "apiKey"
+        ]
       },
       "WebHooks": {
         "type": "object",
@@ -1039,6 +1255,23 @@
             "description": "your webhook name"
           }
         }
+      },
+      "WebHooksHistory": {
+        "type": "object",
+        "properties": {}
+      },
+      "ResendWebhookDto": {
+        "type": "object",
+        "properties": {
+          "webhookHistoryId": {
+            "type": "string",
+            "example": "6200e7b2b3cfeca3405f57f0",
+            "description": "webhook history id"
+          }
+        },
+        "required": [
+          "webhookHistoryId"
+        ]
       }
     }
   }

@@ -41,7 +41,6 @@ export class UpdateClientDto {
         example: 'My cool client',
         description: 'new client name',
     })
-    @IsMongoId()
     name!: string;
 
     @ApiProperty({

@@ -18,13 +18,12 @@ export class UsersService extends CommonDbService {
         super(model);
     }
 
-    create(dto: Users): Promise<Users> {
+    create(dto: Users): Promise<UsersDocument> {
         return this.model.create(dto);
     }
 
     async updateUserById(_id: string | ObjectId, document): Promise<Users> {
-        const res = (await this.model.updateOne({ _id }, { $set: document }, { upsert: true })) as any;
-        return res;
+        return this.model.findOneAndUpdate({ _id }, { $set: document }, { returnOriginal: false });
     }
 
     async findByIdAndExternalId(_id: string | ObjectId, externalId: string): Promise<Users | null> {

@@ -11,6 +11,7 @@ import { ErrorModule } from './error/error.module';
 import { WebhookModule } from './webhooks/webhooks.module';
 import { WsModule } from './ws/ws.module';
 import { AuthModule } from '@common';
+import { WebhookHistoryModule } from './webhooks-history/webhooks-history.module';
 
 /**
 * App module
@@ -34,6 +35,7 @@ import { AuthModule } from '@common';
     WsModule,
     SuperAdminsApiModule,
     WebhookModule,
+    WebhookHistoryModule,
   ],
 })
 export class AppModule {}

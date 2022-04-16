@@ -84,8 +84,8 @@ export class WebhookController {
    * @returns {Object} new Webhook document
    */
    @ApiOperation({ summary: 'Update Webhook' })
-   @ApiResponse({ status: 204, type: () => WebHooks })
-   @HttpCode(204)
+   @ApiResponse({ status: 201, type: () => WebHooks })
+   @HttpCode(201)
    @Keys()
    @Put(':webhookId')
    updateWebhook(

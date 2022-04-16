@@ -25,7 +25,7 @@ export class ErrorService {
     async getErrors(req, query: GetErrorsDto): Promise<Errors[]> {
       const searchObj = this.core.buildSearchPipeline(req.client, query);
     try {
-        const result = await this.errorsService.search({...searchObj, select: { clientId: -1 }});
+        const result = await this.errorsService.search({...searchObj, select: { userId: 1, message: 1 }});
         return result;
     }catch(e) {
         throw new HttpException(EHttpExceptionMessage.InvalidQuery, HttpStatus.BAD_REQUEST);
