@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="en-US">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <title>Webhooks | Maprouting optimization</title>
+    <meta name="generator" content="VuePress 1.9.7">
+    <link rel="icon" href="/-system-of-optimization-of-maprouting/favicon.ico">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.5.1/katex.min.css">
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <meta name="description" content="System for building the optimal route on the map">
+    
+    <link rel="preload" href="/-system-of-optimization-of-maprouting/assets/css/0.styles.4d6d6f33.css" as="style"><link rel="preload" href="/-system-of-optimization-of-maprouting/assets/js/app.7297243e.js" as="script"><link rel="preload" href="/-system-of-optimization-of-maprouting/assets/js/2.b2f11321.js" as="script"><link rel="preload" href="/-system-of-optimization-of-maprouting/assets/js/13.dd975ed6.js" as="script"><link rel="prefetch" href="/-system-of-optimization-of-maprouting/assets/js/10.dab72b81.js"><link rel="prefetch" href="/-system-of-optimization-of-maprouting/assets/js/11.c3a14970.js"><link rel="prefetch" href="/-system-of-optimization-of-maprouting/assets/js/12.5c47c730.js"><link rel="prefetch" href="/-system-of-optimization-of-maprouting/assets/js/14.2600db85.js"><link rel="prefetch" href="/-system-of-optimization-of-maprouting/assets/js/3.b948f3f0.js"><link rel="prefetch" href="/-system-of-optimization-of-maprouting/assets/js/4.f68ba6ba.js"><link rel="prefetch" href="/-system-of-optimization-of-maprouting/assets/js/5.8773aa61.js"><link rel="prefetch" href="/-system-of-optimization-of-maprouting/assets/js/6.29afea76.js"><link rel="prefetch" href="/-system-of-optimization-of-maprouting/assets/js/7.29226641.js"><link rel="prefetch" href="/-system-of-optimization-of-maprouting/assets/js/8.423566ed.js"><link rel="prefetch" href="/-system-of-optimization-of-maprouting/assets/js/9.7111dcfe.js">
+    <link rel="stylesheet" href="/-system-of-optimization-of-maprouting/assets/css/0.styles.4d6d6f33.css">
+  </head>
+  <body>
+    <div id="app" data-server-rendered="true"><div class="theme-container"><header class="navbar"><div class="sidebar-button"><svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" role="img" viewBox="0 0 448 512" class="icon"><path fill="currentColor" d="M436 124H12c-6.627 0-12-5.373-12-12V80c0-6.627 5.373-12 12-12h424c6.627 0 12 5.373 12 12v32c0 6.627-5.373 12-12 12zm0 160H12c-6.627 0-12-5.373-12-12v-32c0-6.627 5.373-12 12-12h424c6.627 0 12 5.373 12 12v32c0 6.627-5.373 12-12 12zm0 160H12c-6.627 0-12-5.373-12-12v-32c0-6.627 5.373-12 12-12h424c6.627 0 12 5.373 12 12v32c0 6.627-5.373 12-12 12z"></path></svg></div> <a href="/-system-of-optimization-of-maprouting/" class="home-link router-link-active"><!----> <span class="site-name">Maprouting optimization</span></a> <div class="links"><div class="search-box"><input aria-label="Search" autocomplete="off" spellcheck="false" value=""> <!----></div> <nav class="nav-links can-hide"><div class="nav-item"><a href="/-system-of-optimization-of-maprouting/" class="nav-link">
+  start
+</a></div> <a href="https://github.com/BohdanShmalko/-system-of-optimization-of-maprouting" target="_blank" rel="noopener noreferrer" class="repo-link">
+    Github
+    <span><svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" focusable="false" x="0px" y="0px" viewBox="0 0 100 100" width="15" height="15" class="icon outbound"><path fill="currentColor" d="M18.8,85.1h56l0,0c2.2,0,4-1.8,4-4v-32h-8v28h-48v-48h28v-8h-32l0,0c-2.2,0-4,1.8-4,4v56C14.8,83.3,16.6,85.1,18.8,85.1z"></path> <polygon fill="currentColor" points="45.7,48.7 51.3,54.3 77.2,28.5 77.2,37.2 85.2,37.2 85.2,14.9 62.8,14.9 62.8,22.9 71.5,22.9"></polygon></svg> <span class="sr-only">(opens new window)</span></span></a></nav></div></header> <div class="sidebar-mask"></div> <aside class="sidebar"><nav class="nav-links"><div class="nav-item"><a href="/-system-of-optimization-of-maprouting/" class="nav-link">
+  start
+</a></div> <a href="https://github.com/BohdanShmalko/-system-of-optimization-of-maprouting" target="_blank" rel="noopener noreferrer" class="repo-link">
+    Github
+    <span><svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" focusable="false" x="0px" y="0px" viewBox="0 0 100 100" width="15" height="15" class="icon outbound"><path fill="currentColor" d="M18.8,85.1h56l0,0c2.2,0,4-1.8,4-4v-32h-8v28h-48v-48h28v-8h-32l0,0c-2.2,0-4,1.8-4,4v56C14.8,83.3,16.6,85.1,18.8,85.1z"></path> <polygon fill="currentColor" points="45.7,48.7 51.3,54.3 77.2,28.5 77.2,37.2 85.2,37.2 85.2,14.9 62.8,14.9 62.8,22.9 71.5,22.9"></polygon></svg> <span class="sr-only">(opens new window)</span></span></a></nav>  <ul class="sidebar-links"><li><a href="/-system-of-optimization-of-maprouting/intro/" class="sidebar-link">Introduction</a></li><li><a href="/-system-of-optimization-of-maprouting/modules/" class="sidebar-link">System modules</a></li><li><a href="/-system-of-optimization-of-maprouting/websocket/" class="sidebar-link">Websocket API</a></li><li><a href="/-system-of-optimization-of-maprouting/webhooks/" aria-current="page" class="active sidebar-link">Webhook settings</a></li><li><a href="/-system-of-optimization-of-maprouting/rest/" class="sidebar-link">REST API</a></li><li><a href="/-system-of-optimization-of-maprouting/database/" class="sidebar-link">Database</a></li><li><a href="/-system-of-optimization-of-maprouting/test/" class="sidebar-link">System testing</a></li></ul> </aside> <main class="page"> <div class="theme-default-content content__default"><h1 id="webhooks"><a href="#webhooks" class="header-anchor">#</a> Webhooks</h1> <h3 id="intro"><a href="#intro" class="header-anchor">#</a> Intro</h3> <p>Webhooks are a technology that allows you to catch client changes on the client's side instantly. The client can create a server that will accept web hooks (requests) from the system. The client will be the server, and the system will be the client with this technology.</p> <h3 id="webhooks-kinds"><a href="#webhooks-kinds" class="header-anchor">#</a> Webhooks kinds</h3> <ul><li>Client Updated</li> <li>User Created</li> <li>User Updated</li> <li>User Deleted</li> <li>Webhook Created</li> <li>Webhook Updated</li> <li>Webhook Deleted</li> <li>UserHistory Created</li> <li>UserHistory Deleted</li> <li>Error Created</li> <li>Error Deleted</li> <li>UserRooms Created</li> <li>UserRooms Deleted</li></ul> <h3 id="examples"><a href="#examples" class="header-anchor">#</a> Examples</h3> <h4 id="fix-webhook-in-system"><a href="#fix-webhook-in-system" class="header-anchor">#</a> Fix webhook in system</h4> <div class="language- extra-class"><pre class="language-text"><code>const { data } = await this.http.post('/webhooks', {
+  &quot;url&quot;: &quot;http://localhost:3001/getWebhook&quot;,
+  &quot;event&quot;: &quot;User Created&quot;,
+  &quot;name&quot;: &quot;user_created&quot;
+}, { api_key: yourApiKey }).toPromise();
+</code></pre></div><h4 id="get-information-from-system-test-nodejs-http-server"><a href="#get-information-from-system-test-nodejs-http-server" class="header-anchor">#</a> Get information from system (test nodejs http server)</h4> <div class="language- extra-class"><pre class="language-text"><code>const http = require('http');
+const { parse } = require('querystring');
+
+const hostname = 'localhost';
+const port = 3001;
+
+const server = http.createServer((req, res) =&gt; {
+  if(req.method.toUpperCase() === 'POST' &amp;&amp; req.url === '/getWebhook'){
+      let body = '';
+      req.on('data', function (data) {
+        body += data;
+      });
+      req.on('end', function () {
+        try {
+          req.body = JSON.parse(body);
+          console.log(req.body);
+          res.statusCode = 200;
+          res.setHeader('Content-Type', 'text/plain');
+          res.end('ok');
+        } catch (e) {
+          req.body = parse(body);
+        }
+      });
+  }else {
+    res.statusCode = 404;
+    res.setHeader('Content-Type', 'text/plain');
+    res.end('Not found');
+  }
+});
+
+server.listen(port, hostname, () =&gt; {
+  console.log(`Server running at http://${hostname}:${port}/`);
+});
+</code></pre></div></div> <footer class="page-edit"><!----> <div class="last-updated"><span class="prefix">Last update:</span> <span class="time">4/17/2022, 7:04:39 PM</span></div></footer> <div class="page-nav"><p class="inner"><span class="prev">
+      ←
+      <a href="/-system-of-optimization-of-maprouting/websocket/" class="prev">
+        Websocket API
+      </a></span> <span class="next"><a href="/-system-of-optimization-of-maprouting/rest/">
+        REST API
+      </a>
+      →
+    </span></p></div> </main></div><div class="global-ui"></div></div>
+    <script src="/-system-of-optimization-of-maprouting/assets/js/app.7297243e.js" defer></script><script src="/-system-of-optimization-of-maprouting/assets/js/2.b2f11321.js" defer></script><script src="/-system-of-optimization-of-maprouting/assets/js/13.dd975ed6.js" defer></script>
+  </body>
+</html>

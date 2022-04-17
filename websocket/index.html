@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="en-US">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <title>Websockets | Maprouting optimization</title>
+    <meta name="generator" content="VuePress 1.9.7">
+    <link rel="icon" href="/-system-of-optimization-of-maprouting/favicon.ico">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.5.1/katex.min.css">
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <meta name="description" content="System for building the optimal route on the map">
+    
+    <link rel="preload" href="/-system-of-optimization-of-maprouting/assets/css/0.styles.4d6d6f33.css" as="style"><link rel="preload" href="/-system-of-optimization-of-maprouting/assets/js/app.7297243e.js" as="script"><link rel="preload" href="/-system-of-optimization-of-maprouting/assets/js/2.b2f11321.js" as="script"><link rel="preload" href="/-system-of-optimization-of-maprouting/assets/js/14.2600db85.js" as="script"><link rel="prefetch" href="/-system-of-optimization-of-maprouting/assets/js/10.dab72b81.js"><link rel="prefetch" href="/-system-of-optimization-of-maprouting/assets/js/11.c3a14970.js"><link rel="prefetch" href="/-system-of-optimization-of-maprouting/assets/js/12.5c47c730.js"><link rel="prefetch" href="/-system-of-optimization-of-maprouting/assets/js/13.dd975ed6.js"><link rel="prefetch" href="/-system-of-optimization-of-maprouting/assets/js/3.b948f3f0.js"><link rel="prefetch" href="/-system-of-optimization-of-maprouting/assets/js/4.f68ba6ba.js"><link rel="prefetch" href="/-system-of-optimization-of-maprouting/assets/js/5.8773aa61.js"><link rel="prefetch" href="/-system-of-optimization-of-maprouting/assets/js/6.29afea76.js"><link rel="prefetch" href="/-system-of-optimization-of-maprouting/assets/js/7.29226641.js"><link rel="prefetch" href="/-system-of-optimization-of-maprouting/assets/js/8.423566ed.js"><link rel="prefetch" href="/-system-of-optimization-of-maprouting/assets/js/9.7111dcfe.js">
+    <link rel="stylesheet" href="/-system-of-optimization-of-maprouting/assets/css/0.styles.4d6d6f33.css">
+  </head>
+  <body>
+    <div id="app" data-server-rendered="true"><div class="theme-container"><header class="navbar"><div class="sidebar-button"><svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" role="img" viewBox="0 0 448 512" class="icon"><path fill="currentColor" d="M436 124H12c-6.627 0-12-5.373-12-12V80c0-6.627 5.373-12 12-12h424c6.627 0 12 5.373 12 12v32c0 6.627-5.373 12-12 12zm0 160H12c-6.627 0-12-5.373-12-12v-32c0-6.627 5.373-12 12-12h424c6.627 0 12 5.373 12 12v32c0 6.627-5.373 12-12 12zm0 160H12c-6.627 0-12-5.373-12-12v-32c0-6.627 5.373-12 12-12h424c6.627 0 12 5.373 12 12v32c0 6.627-5.373 12-12 12z"></path></svg></div> <a href="/-system-of-optimization-of-maprouting/" class="home-link router-link-active"><!----> <span class="site-name">Maprouting optimization</span></a> <div class="links"><div class="search-box"><input aria-label="Search" autocomplete="off" spellcheck="false" value=""> <!----></div> <nav class="nav-links can-hide"><div class="nav-item"><a href="/-system-of-optimization-of-maprouting/" class="nav-link">
+  start
+</a></div> <a href="https://github.com/BohdanShmalko/-system-of-optimization-of-maprouting" target="_blank" rel="noopener noreferrer" class="repo-link">
+    Github
+    <span><svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" focusable="false" x="0px" y="0px" viewBox="0 0 100 100" width="15" height="15" class="icon outbound"><path fill="currentColor" d="M18.8,85.1h56l0,0c2.2,0,4-1.8,4-4v-32h-8v28h-48v-48h28v-8h-32l0,0c-2.2,0-4,1.8-4,4v56C14.8,83.3,16.6,85.1,18.8,85.1z"></path> <polygon fill="currentColor" points="45.7,48.7 51.3,54.3 77.2,28.5 77.2,37.2 85.2,37.2 85.2,14.9 62.8,14.9 62.8,22.9 71.5,22.9"></polygon></svg> <span class="sr-only">(opens new window)</span></span></a></nav></div></header> <div class="sidebar-mask"></div> <aside class="sidebar"><nav class="nav-links"><div class="nav-item"><a href="/-system-of-optimization-of-maprouting/" class="nav-link">
+  start
+</a></div> <a href="https://github.com/BohdanShmalko/-system-of-optimization-of-maprouting" target="_blank" rel="noopener noreferrer" class="repo-link">
+    Github
+    <span><svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" focusable="false" x="0px" y="0px" viewBox="0 0 100 100" width="15" height="15" class="icon outbound"><path fill="currentColor" d="M18.8,85.1h56l0,0c2.2,0,4-1.8,4-4v-32h-8v28h-48v-48h28v-8h-32l0,0c-2.2,0-4,1.8-4,4v56C14.8,83.3,16.6,85.1,18.8,85.1z"></path> <polygon fill="currentColor" points="45.7,48.7 51.3,54.3 77.2,28.5 77.2,37.2 85.2,37.2 85.2,14.9 62.8,14.9 62.8,22.9 71.5,22.9"></polygon></svg> <span class="sr-only">(opens new window)</span></span></a></nav>  <ul class="sidebar-links"><li><a href="/-system-of-optimization-of-maprouting/intro/" class="sidebar-link">Introduction</a></li><li><a href="/-system-of-optimization-of-maprouting/modules/" class="sidebar-link">System modules</a></li><li><a href="/-system-of-optimization-of-maprouting/websocket/" aria-current="page" class="active sidebar-link">Websocket API</a></li><li><a href="/-system-of-optimization-of-maprouting/webhooks/" class="sidebar-link">Webhook settings</a></li><li><a href="/-system-of-optimization-of-maprouting/rest/" class="sidebar-link">REST API</a></li><li><a href="/-system-of-optimization-of-maprouting/database/" class="sidebar-link">Database</a></li><li><a href="/-system-of-optimization-of-maprouting/test/" class="sidebar-link">System testing</a></li></ul> </aside> <main class="page"> <div class="theme-default-content content__default"><h1 id="websockets"><a href="#websockets" class="header-anchor">#</a> Websockets</h1> <h2 id="connection-socket-io-client-library"><a href="#connection-socket-io-client-library" class="header-anchor">#</a> Connection socket.io client (library)</h2> <ol><li>Install library <code>yarn add socket.io-client</code> or <code>npm i socket.io-client</code></li> <li>Use in code</li></ol> <div class="language- extra-class"><pre class="language-text"><code>import io from 'socket.io-client'
+const socketRef = io(SERVER_URL, { query: { roomId } });
+socketRef.emit('user:add', { username, userId });
+socketRef.on('users', (data) =&gt; {
+    console.log(data)
+});
+</code></pre></div><h2 id="connection-socket-io-client-in-browser"><a href="#connection-socket-io-client-in-browser" class="header-anchor">#</a> Connection socket.io client (in browser)</h2> <p>in .html</p> <div class="language- extra-class"><pre class="language-text"><code>&lt;script src=&quot;https://cdn.socket.io/4.4.1/socket.io.min.js&quot; integrity=&quot;sha384-fKnu0iswBIqkjxrhQCTZ7qlLHOFEgNkRmK2vaO/LbTZSXdJfAu6ewRBdwHPhBo/H&quot; crossorigin=&quot;anonymous&quot;&gt;&lt;/script&gt;
+</code></pre></div><p>in .js</p> <div class="language- extra-class"><pre class="language-text"><code>const socket = new WebSocket(&quot;ws://localhost:3000&quot;);
+
+socket.onopen = () =&gt; {
+  socket.send(&quot;Hello!&quot;);
+};
+
+socket.onmessage = (data) =&gt; {
+  console.log(data);
+};
+</code></pre></div><h2 id="connection-socket-io-client-module-angular"><a href="#connection-socket-io-client-module-angular" class="header-anchor">#</a> Connection socket.io client module (Angular)</h2> <ol><li>Install <code>npm install ngx-socket-io</code> or <code>yarn add ngx-socket-io</code></li> <li>Use in code</li></ol> <div class="language- extra-class"><pre class="language-text"><code>import { SocketIoModule, SocketIoConfig } from 'ngx-socket-io';
+const config: SocketIoConfig = { url: 'http://localhost:4444', options: {} };
+// in module
+@NgModule({
+  // ...
+  imports: [
+    // ...
+    SocketIoModule.forRoot(config)
+  ],
+  // ...
+})
+
+//in service
+import { Injectable } from '@angular/core';
+import { Socket } from 'ngx-socket-io';
+
+@Injectable({
+  providedIn: 'root'
+})
+export class YourService {
+  constructor(private socket: Socket) { }
+
+  getDocument(id: string) {
+    this.socket.emit('getDoc', id);
+  }
+
+  newDocument() {
+    this.socket.on('addDoc', (data) =&gt; {
+        console.log(data);
+    });
+  }
+}
+</code></pre></div><h2 id="examples-client"><a href="#examples-client" class="header-anchor">#</a> Examples (client)</h2> <h3 id="emit"><a href="#emit" class="header-anchor">#</a> emit</h3> <h4 id="device-error"><a href="#device-error" class="header-anchor">#</a> device error</h4> <div class="language- extra-class"><pre class="language-text"><code>socket.emit('serverErrorDevice', { message: 'your error message', userId: 'uniqueId' });
+</code></pre></div><h4 id="update-location-if-in-room"><a href="#update-location-if-in-room" class="header-anchor">#</a> update location if in room</h4> <div class="language- extra-class"><pre class="language-text"><code>socket.emit('serverUpdateLocation', { 
+    lat: 'your lat',
+    lon: 'your lon',
+    userId: 'uniqueId',
+ });
+</code></pre></div><h3 id="on"><a href="#on" class="header-anchor">#</a> on</h3> <h4 id="connect"><a href="#connect" class="header-anchor">#</a> connect</h4> <div class="language- extra-class"><pre class="language-text"><code>socket.on('connect', (data) =&gt; {
+    console.log(data);
+})
+</code></pre></div><h4 id="user-error-in-your-room"><a href="#user-error-in-your-room" class="header-anchor">#</a> user error in your room</h4> <div class="language- extra-class"><pre class="language-text"><code>socket.on('clientErrorDevice', (data) =&gt; {
+    console.log(data);
+})
+</code></pre></div><h4 id="user-update-location-in-your-room"><a href="#user-update-location-in-your-room" class="header-anchor">#</a> user update location in your room</h4> <div class="language- extra-class"><pre class="language-text"><code>socket.on('clientUpdateLocation', (data) =&gt; {
+    console.log(data);
+})
+</code></pre></div></div> <footer class="page-edit"><!----> <div class="last-updated"><span class="prefix">Last update:</span> <span class="time">4/17/2022, 7:04:39 PM</span></div></footer> <div class="page-nav"><p class="inner"><span class="prev">
+      ←
+      <a href="/-system-of-optimization-of-maprouting/modules/" class="prev">
+        System modules
+      </a></span> <span class="next"><a href="/-system-of-optimization-of-maprouting/webhooks/">
+        Webhook settings
+      </a>
+      →
+    </span></p></div> </main></div><div class="global-ui"></div></div>
+    <script src="/-system-of-optimization-of-maprouting/assets/js/app.7297243e.js" defer></script><script src="/-system-of-optimization-of-maprouting/assets/js/2.b2f11321.js" defer></script><script src="/-system-of-optimization-of-maprouting/assets/js/14.2600db85.js" defer></script>
+  </body>
+</html>
