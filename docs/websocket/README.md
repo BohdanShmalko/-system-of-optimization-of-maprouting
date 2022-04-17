@@ -75,7 +75,7 @@ export class YourService {
 
 #### device error
 ```
-socket.emit('serverErrorDevice', { message: 'your error message' });
+socket.emit('serverErrorDevice', { message: 'your error message', userId: 'uniqueId' });
 ```
 
 #### update location if in room
@@ -83,6 +83,7 @@ socket.emit('serverErrorDevice', { message: 'your error message' });
 socket.emit('serverUpdateLocation', { 
     lat: 'your lat',
     lon: 'your lon',
+    userId: 'uniqueId',
  });
 ```
 

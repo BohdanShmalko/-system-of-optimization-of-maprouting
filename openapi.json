@@ -1192,20 +1192,12 @@
             "example": "My cool client",
             "description": "new client name"
           },
-          "apiKey": {
-            "type": "string",
-            "example": "783fe2cf-329e-40bf-812b-1830ba3c80bb",
-            "description": "client apikey"
-          },
           "newApiKey": {
             "type": "string",
             "example": "7835682cf-329e-40bf-812b-1830ba3c80bb",
             "description": "new client apikey"
           }
-        },
-        "required": [
-          "apiKey"
-        ]
+        }
       },
       "WebHooks": {
         "type": "object",

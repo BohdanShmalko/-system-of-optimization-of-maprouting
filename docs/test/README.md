@@ -33,91 +33,85 @@ The system must not lead to failure (fatal malfunction of the system) and must m
 To run test suites, use the jest library and the JavaScript package manager - npm (Node Package Manager), and the command `npm test`
 
 Test procedure:
-1. WsService
-2. WsGateway
-3. UserService
-4. UserController
-5. RouteService
-6. RouteController
-7. LocationService
-8. LocationController
-9. ErrorService
-10. ErrorController
-11. AuthService
-12. JwtAuthGuard
-
-Jest reporter is used to process test results and create a test report in HTML
+1. ErrorService
+2. ErrorController
+3. LocationService
+4. LocationController
+5. SuperAdminsApiController
+6. SuperAdminsApiService
+7. UserService
+8. UserController
+9. WebhooksController
+10. WebhooksService
 
 ## Test methods
 
 The following lists of test sets and individual test examples are offered for testing:
 
-** WsService **
+**ErrorService**
 
-* afterInit - notify the system that it is ready for use
-* handleConnection - notify other users when a new one appears on the map
-* handleDisconnect - notify other users about the disappearance of the user on the map
-* handleErrorDevice - 
-* handleUpdateLocation - 
-* handleRouteUser - 
+* deleteError - catch the event from the controller and interact with the service for delete user error
+* getErrors - catch the event from the controller and interact with the service for search with another filters users errors
 
-** WsGateway **
+**ErrorController**
 
-* afterInit - catch the event from the system and interact with the service for notify the system that it is ready for use
-* handleConnection - catch the event from the user and interact with the service for notify other users when a new one appears on the map
-* handleDisconnect - catch the event from the user and interact with the service for notify other users about the disappearance of the user on the map
-* handleErrorDevice - catch the event from the user and interact with the service for
-* handleUpdateLocation - catch the event from the user and interact with the service for
-* handleRouteUser - catch the event from the user and interact with the service for
+* deleteError - catch the event from the client and interact with the service for delete user error
+* getErrors - catch the event from the client and interact with the service for search with another filters users errors
 
-** UserService **
+**LocationService**
 
-* loginUser - 
-* sendCode - 
-* confirmCode -
+* fixUserLocation - catch the event from the controller and interact with the service for fix user location
+* getRoute - catch the event from the controller and interact with the service for search route from one place to another
+* getUserLocation - catch the event from the controller and interact with the service for sarch user location with another filters
 
-** UserController **
+**LocationController**
 
-* loginUser - catch the event from the user and interact with the service for
-* sendCode - catch the event from the user and interact with the service for
-* confirmCode - catch the event from the user and interact with the service for
+* fixUserLocation - catch the event from the client and interact with the service for fix user location
+* getRoute - catch the event from the client and interact with the service for search route from one place to another
+* getUserLocation - catch the event from the client and interact with the service for sarch user location with another filters
 
-** RouteService **
+**SuperAdminsApiController**
 
-* changeUserAlgorithm -
-* routeToPlace - 
+* createNewClient - catch the event from the admin and interact with the service for create new client
+* deleteClient - catch the event from the admin and interact with the service for delete client and all relative with it
+* getClients - catch the event from the admin and interact with the service for search clients with another filters
+* updateClient - catch the event from the admin and interact with the service for update client data
 
-** RouteController **
+**SuperAdminsApiService**
 
-* changeUserAlgorithm - catch the event from the user and interact with the service for
-* routeToPlace - catch the event from the user and interact with the service for
+* createNewClient - catch the event from the controller and interact with the service for create new client
+* deleteClient - catch the event from the controller and interact with the service for delete client and all relative with it
+* getClients - catch the event from the controller and interact with the service for search clients with another filters
+* updateClient - catch the event from the controller and interact with the service for update client data
 
-** LocationService **
+**UserService**
 
-* fixUserLocation - 
+* createNewUser - catch the event from the client and interact with the service for create new user
+* deleteUser - catch the event from the client and interact with the service for delete user with all revative with it
+* getUsers - catch the event from the client and interact with the service for search user with another filters
+* updateUser - catch the event from the client and interact with the service for update user data
 
-** LocationController **
+**UserController**
 
-* fixUserLocation - catch the event from the user and interact with the service for
+* createNewUser - catch the event from the controller and interact with the service for create new user
+* deleteUser - catch the event from the controller and interact with the service for delete user with all revative with it
+* getUsers - catch the event from the controller and interact with the service for search user with another filters
+* updateUser - catch the event from the controller and interact with the service for update user data
 
-** ErrorService **
+**WebhooksController**
 
-* fixError - 
+* getWebhooks - catch the event from the client and interact with the service for search webhooks with another filters
+* createNewWebhook - catch the event from the client and interact with the service for create new webhook
+* deleteWebhook - catch the event from the client and interact with the service for delete webhook
+* updateWebhook - catch the event from the client and interact with the service for update webhook data
 
-** ErrorController **
+**WebhooksService**
 
-* fixError - catch the event from the user and interact with the service for
-
-** AuthService **
-
-* getJwtData - 
-* generateToken - 
-* diff - 
-
-** JwtAuthGuard **
-
-* canActivate - 
+* getWebhooks - catch the event from the controller and interact with the service for search webhooks with another filters
+* createNewWebhook - catch the event from the controller and interact with the service for create new webhook
+* deleteWebhook - catch the event from the controller and interact with the service for delete webhook
+* updateWebhook - catch the event from the controller and interact with the service for update webhook data
 
 ## Addition
 
-The content of test files, the results of testing the software module and extended information about the test coverage, which averaged 70.74%, is given in [Jest document]()...
+The content of test files, the results of testing the software module and extended information about the test coverage, which averaged 70.74%

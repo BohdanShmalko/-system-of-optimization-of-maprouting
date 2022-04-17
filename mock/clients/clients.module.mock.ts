@@ -1,10 +1,10 @@
 import { Module } from '@nestjs/common';
 import { ClientsService } from './clients.service.mock';
-import { MongoModuleMock } from '../mongo/mongo.module.mock'
+import { MongoModuleModule } from '../mongo/mongo.module.mock'
 
 @Module({
-  imports: [MongoModuleMock],
+  imports: [MongoModuleModule],
   providers: [ClientsService],
   exports: [ClientsService],
 })
-export class ClientsMock {}
+export class ClientsModule {}

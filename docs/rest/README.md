@@ -1,6 +1,6 @@
 # REST
 
-[![Run in Postman](https://run.pstmn.io/button.svg)](https://app.getpostman.com/run-collection/9741c970139d8b0f7c67?action=collection%2Fimport)
+[![Run in Postman](https://run.pstmn.io/button.svg)](https://app.getpostman.com/run-collection/3adc7d4e2c91f3bd1586?action=collection%2Fimport)
 
 ## Connection http module (Angular/Nest)
 
@@ -42,30 +42,14 @@ const axios = require('axios');
 const { data } = await this.http.post('/location', {
     lat: 'your lat',
     lon: 'your lon',
+    time: 11111111,
     userId: 'user id',
-}, { api_key: yourApiKey }).toPromise();
-```
-
-#### Fix device error
-
-```
-const { data } = await this.http.post('/error', {
-    error: 'error message',
-    userId: 'user id',
-}, { api_key: yourApiKey }).toPromise();
-```
-
-#### Change account algorithm
-
-```
-const { data } = await this.http.put('/user/algorithm/:userId', {
-    algorithm: 'choosen algorithm'
 }, { api_key: yourApiKey }).toPromise();
 ```
 
 #### Get route to static place
 
 ```
-const { data } = await this.http.get('/location/place?lat=placeLat;lon=placeLon',
+const { data } = await this.http.get('/location/route?startLat=38.8951&startLon=-77.0364&endLat=31.8951&endLon=-71.0364&userId=625ac414cc55e1f020c50436&transport=car',
     { api_key: yourApiKey }).toPromise();
 ```

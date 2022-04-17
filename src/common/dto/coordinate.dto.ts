@@ -12,12 +12,12 @@ export class CoordinateDto {
       description: 'lat coordinate',
     })
     @IsString({ message: 'must be string' })
-    readonly lat: string;
+    lat: string;
 
     @ApiProperty({
       example: '-77.0364',
       description: 'lon coordinate',
     })
     @IsString({ message: 'must be string' })
-    readonly lon: string;
+    lon: string;
 }

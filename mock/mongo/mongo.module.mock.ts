@@ -6,4 +6,4 @@ import { MongoService } from './mongo.service.mock';
   providers: [MongoService],
   exports: [MongoService],
 })
-export class MongoModuleMock {}
+export class MongoModuleModule {}

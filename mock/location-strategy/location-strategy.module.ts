@@ -13,4 +13,4 @@ import { LocationStrategyService } from './location-strategy.service';
   providers: [LocationStrategyService, GoogleStrategyService, HereStrategyService],
   exports: [LocationStrategyService, GoogleStrategyService, HereStrategyService],
 })
-export class LocationStrategyMock {}
+export class LocationStrategyModule {}

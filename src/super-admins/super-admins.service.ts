@@ -93,7 +93,7 @@ export class SuperAdminsApiService {
     */
      async updateClient(req, param: ClientIdDto, dto: UpdateClientDto): Promise<Clients> {
         const adminId = req.client.document._id;
-        const existingClient = await this.clientsService.findByApiKey(dto.apiKey);
+        const existingClient = await this.clientsService.findById(param.clientId);
         if(!existingClient) throw new HttpException(
             EHttpExceptionMessage.ClientNotExistApiKey, 
             HttpStatus.BAD_REQUEST
@@ -105,13 +105,15 @@ export class SuperAdminsApiService {
                 HttpStatus.CONFLICT
             );
         }
+        const newClientSet: any = {
+            ...dto,
+            adminUpdated: adminId,
+        }
+        if(dto.newApiKey) newClientSet.apiKey = dto.newApiKey;
+        delete newClientSet.newApiKey;
         const updatedClient = await this.clientsService.updateClientById(
             existingClient._id,
-            {
-                ...dto,
-                apiKey: dto.newApiKey || dto.apiKey,
-                adminUpdated: adminId,
-            }
+            newClientSet,
         );
         return updatedClient;
     }

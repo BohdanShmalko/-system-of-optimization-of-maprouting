@@ -43,13 +43,6 @@ export class UpdateClientDto {
     })
     name!: string;
 
-    @ApiProperty({
-        example: '783fe2cf-329e-40bf-812b-1830ba3c80bb',
-        description: 'client apikey',
-    })
-    @IsString()
-    apiKey!: string;
-
     @IsOptional()
     @ApiPropertyOptional({
         example: '7835682cf-329e-40bf-812b-1830ba3c80bb',

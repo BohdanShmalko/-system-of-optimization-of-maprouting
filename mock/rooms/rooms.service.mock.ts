@@ -9,9 +9,16 @@ import { Schema, Document } from 'mongoose';
 export class RoomsService implements RoomsServiceReal {
     constructor(private mongo : MongoService){}
     create(dto: Rooms): Promise<Rooms> {
-        return
+        const collection = this.mongo.rooms;
+        const newDoc = {
+            _id: this.mongo.newId(),
+            ...dto,
+        }
+        collection.push(newDoc);
+        this.mongo.rooms = collection;
+        return newDoc as any;
     }
     findById(_id: string | Schema.Types.ObjectId): Promise<Rooms & Document<any, any, any> & { _id: any; }> {
-        return
+        return this.mongo.rooms.find(doc => doc._id === _id); 
     }
 }

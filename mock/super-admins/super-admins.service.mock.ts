@@ -9,6 +9,6 @@ import { Query, Document } from 'mongoose';
 export class SuperAdminsService implements SuperAdminsServiceReal {
     constructor(private mongo : MongoService){}
     public findByApiKey(apiKey: string): Query<SuperAdmins & Document<any, any, any> & { _id: any; }, SuperAdmins & Document<any, any, any> & { _id: any; }, {}, SuperAdminsDocument> {
-        return
+        return this.mongo.super_admins.find(doc => doc.apiKey === apiKey);
     }
 }

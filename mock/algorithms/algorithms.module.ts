@@ -12,4 +12,4 @@ import { BipartiteSubsetsService } from './bipartite-subset.service';
   providers: [AlgorithmsService, BipartiteSubsetsService],
   exports: [AlgorithmsService, BipartiteSubsetsService],
 })
-export class AlgorithmsMock {}
+export class AlgorithmsModule {}

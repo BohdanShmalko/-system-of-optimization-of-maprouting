@@ -5,8 +5,7 @@ const hostname = 'localhost';
 const port = 3001;
 
 const server = http.createServer((req, res) => {
-    console.log('work');
-  if(req.method.toUpperCase() === 'POST'){
+  if(req.method.toUpperCase() === 'POST' && req.url === '/getWebhook'){
       let body = '';
       req.on('data', function (data) {
         body += data;
