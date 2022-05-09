@@ -1,6 +1,8 @@
+import { HttpModule } from '@nestjs/axios';
 import { Module } from '@nestjs/common';
 import { AlgorithmsService } from './algorithms.service';
-import { BipartiteSubsetsService } from './bipartite-subset.service';
+import { FloydWarshallService } from './floyd-warshall.service';
+import { BellmanFordService } from './bellman-ford.service';
 
 /**
 * Algorithms module
@@ -8,8 +10,8 @@ import { BipartiteSubsetsService } from './bipartite-subset.service';
 * @kind module
 */
 @Module({
-  imports: [],
-  providers: [AlgorithmsService, BipartiteSubsetsService],
-  exports: [AlgorithmsService, BipartiteSubsetsService],
+  imports: [HttpModule],
+  providers: [AlgorithmsService, FloydWarshallService, BellmanFordService],
+  exports: [AlgorithmsService, FloydWarshallService, BellmanFordService],
 })
 export class AlgorithmsModule {}

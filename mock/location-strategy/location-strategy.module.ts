@@ -1,6 +1,6 @@
 import { Module } from '@nestjs/common';
-import { GoogleStrategyService } from './google-strategy.service';
-import { HereStrategyService } from './here-strategy.service';
+import { BingStrategyService } from './bing-strategy.service';
+import { OpenRouteStrategyService } from './openroute-strategy.service';
 import { LocationStrategyService } from './location-strategy.service';
 
 /**
@@ -10,7 +10,7 @@ import { LocationStrategyService } from './location-strategy.service';
 */
 @Module({
   imports: [],
-  providers: [LocationStrategyService, GoogleStrategyService, HereStrategyService],
-  exports: [LocationStrategyService, GoogleStrategyService, HereStrategyService],
+  providers: [LocationStrategyService, BingStrategyService, OpenRouteStrategyService],
+  exports: [LocationStrategyService, BingStrategyService, OpenRouteStrategyService],
 })
 export class LocationStrategyModule {}

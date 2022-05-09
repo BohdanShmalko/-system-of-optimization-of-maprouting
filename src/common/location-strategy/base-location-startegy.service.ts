@@ -1,17 +1,23 @@
+import { ETransports } from '@db';
 import { Injectable } from '@nestjs/common';
 import { ILocationInput, ILocationsDots } from './location-strategy.service';
 
 /**
-* Here Strategy Service class
-* @name HereStrategyService
+* Base Location Strategy Service class
+* @name BaseLocationStrategyService
 * @kind class
 */
 @Injectable()
-export class HereStrategyService {
+export class BaseLocationStrategyService {
   constructor() {}
 
-  public async strategy(data: ILocationInput): Promise<ILocationsDots[]> {
-    // MOCK
+  public modes: {[key in ETransports] ?: string} = {};
+
+  protected async strategy(data: ILocationInput): Promise<ILocationsDots[]> {
+    return this.getDefaultRes(data);
+  }
+
+  protected getDefaultRes(data: ILocationInput): ILocationsDots[] {
     return [
         {
             lat: data.startLat,

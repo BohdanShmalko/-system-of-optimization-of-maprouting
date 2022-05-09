@@ -1,10 +1,12 @@
 import { EAlgorithms, LocationsService, LocationStepsService, UserHistorys, UserHistorysService, UsersService } from '@db';
 import { HttpException, HttpStatus, Injectable } from '@nestjs/common';
 import { 
+  algorithmSettingsDataset,
   AlgorithmsService,
   CoreService,
   CreateUserHistoryDto, 
   EHttpExceptionMessage, 
+  ELocationServiceName, 
   GetLocationDto, 
   GetUserHistorysDto, 
   LocationStepsDto,
@@ -27,7 +29,10 @@ export class LocationService {
     private readonly core: CoreService,
     private readonly algorithmService: AlgorithmsService,
     private readonly locationStrategyService: LocationStrategyService,
-  ){}
+  ){
+    this[ELocationServiceName.AlgorithmService] = this.algorithmService;
+    this[ELocationServiceName.LocationService] = this.locationStepsService;
+  }
 
   /**
   * Save user location in database
@@ -84,6 +89,7 @@ export class LocationService {
   async getRoute(req, query: GetLocationDto): Promise<LocationStepsDto[]> {
     const clientId = req.client.document._id;
     const user = await this.usersService.findByIdAndClient(query.userId, clientId);
+    const apiStrategys = Object.keys(algorithmSettingsDataset);
     if(!user) throw new HttpException(EHttpExceptionMessage.UserNotExistId, HttpStatus.FORBIDDEN);
     const algorithm = user.algorithm;
     const locationDto = {
@@ -101,23 +107,12 @@ export class LocationService {
       }));
     }
     const newLocation = await this.locationsService.create(locationDto);
-    if(this.locationStrategyService.apiStrategys.includes(algorithm)) {
-      return this.formByApiAlgorithms(
+    return this.formByApiAlgorithms(
+        apiStrategys,
         algorithm,
         newLocation,
         locationDto,
-      )
-    }
-    const allAlgorithmsSteps = [];
-    for(const apiAlgorithm of this.locationStrategyService.apiStrategys){
-      const result = await this.getOrCreateApiSteps(apiAlgorithm, locationDto);
-      allAlgorithmsSteps.push(result);
-    }
-    return this.formByDiscretAlgorithms(
-      algorithm,
-      newLocation,
-      allAlgorithmsSteps,
-    );
+    )
   }
 
   private async insertByApiAlgorithm(func, locationId, locationDto, withId) {
@@ -130,52 +125,18 @@ export class LocationService {
     return withId ? result : allSteps;
   }
 
-  private async formByApiAlgorithms(algorithm, newLocation, locationDto, withId = true) {
-    switch (algorithm) {
-      case EAlgorithms.Google: return this.insertByApiAlgorithm(
-        this.locationStrategyService.googleStrategy.bind(this.locationStrategyService), 
-        newLocation._id.toString(), 
-        locationDto,
-        withId,
-      )
-      case EAlgorithms.Here: return this.insertByApiAlgorithm(
-        this.locationStrategyService.hereStrategy.bind(this.locationStrategyService), 
-        newLocation._id.toString(), 
-        locationDto,
-        withId,
-      )
+  private async formByApiAlgorithms(apiStrategys, algorithm, newLocation, locationDto, withId = true) {
+    for(const strategy of apiStrategys) {
+      if(strategy === algorithm) {
+        const { service, funcName } = algorithmSettingsDataset[strategy];
+        return this.insertByApiAlgorithm(
+          this[service][funcName].bind(this.locationStrategyService), 
+          newLocation._id.toString(), 
+          locationDto,
+          withId,
+        )
+      }
     }
     return [];
-  }
-
-  private async formByDiscretAlgorithms(algorithm, newLocation, allAlgorithmsSteps, withId = true) {
-    switch (algorithm) {
-      case EAlgorithms.BipartiteSubset: return this.insertByApiAlgorithm(
-        this.algorithmService.bipartiteSubsets.bind(this.algorithmService), 
-        newLocation._id.toString(), 
-        allAlgorithmsSteps,
-        withId,
-      )
-    }
-    return [];
-  }
-
-  private async getOrCreateApiSteps(algorithm, locationDto) {
-    const location = await this.locationsService.findByDto({...locationDto, algorithm});
-    if(location) {
-      const steps = await this.locationStepsService.findByLocationId(location._id);
-      if(steps) return steps.map(step => ({
-        lat: step.lat,
-        lon: step.lon,
-        step: step.step,
-      }));
-    };
-    const newLocation = await this.locationsService.create({...locationDto, algorithm});
-    return this.formByApiAlgorithms(
-      algorithm, 
-      newLocation,
-      locationDto,
-      false,
-    )
   }
 }

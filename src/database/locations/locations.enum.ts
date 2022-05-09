@@ -4,9 +4,10 @@
 * @kind namespace
 */
 export enum EAlgorithms {
-    BipartiteSubset = 'Bipartite Subset',
-    Google = 'Google',
-    Here = 'Here',
+    FloydWarshall = 'Floyd-Warshall',
+    BellmanFord = 'Bellman-Ford',
+    Openroute = 'Openroute',
+    Bing = 'Bing',
 }
 
 /**
@@ -15,6 +16,9 @@ export enum EAlgorithms {
 * @kind namespace
 */
 export enum ETransports {
-    Foot = 'foot',
+    Walking = 'walking',
     Car = 'car',
+    Hgv = 'hgv',
+    Bike = 'bike',
+    Transit = 'transit',
 }

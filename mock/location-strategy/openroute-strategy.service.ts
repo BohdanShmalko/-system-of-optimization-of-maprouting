@@ -1,14 +1,15 @@
 import { Injectable } from '@nestjs/common';
+import { BaseLocationStrategyService } from './base-location-startegy.service';
 import { ILocationInput, ILocationsDots } from './location-strategy.service';
 
 /**
-* Here Strategy Service class
-* @name HereStrategyService
+* Openroute Strategy Service class
+* @name OpenRouteStrategyService
 * @kind class
 */
 @Injectable()
-export class HereStrategyService {
-  constructor() {}
+export class OpenRouteStrategyService extends BaseLocationStrategyService {
+  constructor() { super() }
 
   public async strategy(data: ILocationInput): Promise<ILocationsDots[]> {
     // MOCK

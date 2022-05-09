@@ -1,7 +1,7 @@
 import { EAlgorithms } from '@db';
 import { Injectable } from '@nestjs/common';
-import { GoogleStrategyService } from './google-strategy.service';
-import { HereStrategyService } from './here-strategy.service';
+import { BingStrategyService } from './bing-strategy.service';
+import { OpenRouteStrategyService } from './openroute-strategy.service';
 
 export interface ILocationsDots {
     lat: string,
@@ -25,20 +25,15 @@ export interface ILocationInput {
 @Injectable()
 export class LocationStrategyService {
   constructor(
-      private readonly google: GoogleStrategyService,
-      private readonly here: HereStrategyService,
+      private readonly bing: BingStrategyService,
+      private readonly openroute: OpenRouteStrategyService,
   ) {}
 
-  public readonly apiStrategys = [
-      EAlgorithms.Google, 
-      EAlgorithms.Here,
-    ];
-
-  public async googleStrategy(data: ILocationInput): Promise<ILocationsDots[]> {
-        return this.google.strategy(data);
+  public async bingStrategy(data: ILocationInput): Promise<ILocationsDots[]> {
+        return this.bing.strategy(data);
   }
 
-  public async hereStrategy(data: ILocationInput): Promise<ILocationsDots[]> {
-    return this.here.strategy(data);
+  public async openrouteStrategy(data: ILocationInput): Promise<ILocationsDots[]> {
+    return this.openroute.strategy(data);
   }
 }

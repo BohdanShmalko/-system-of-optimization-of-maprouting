@@ -11,7 +11,7 @@ export class Users extends BaseClientsObject {
     @Prop({})
     externalId!: string;
 
-    @Prop({ required: true, enum: EAlgorithms, default: EAlgorithms.BipartiteSubset })
+    @Prop({ required: true, enum: EAlgorithms, default: EAlgorithms.FloydWarshall })
     algorithm!: string
 
     @Prop({ required: false, type: MongooseSchema.Types.Mixed })

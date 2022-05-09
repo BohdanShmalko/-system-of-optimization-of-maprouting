@@ -1,6 +1,7 @@
 import { Injectable } from '@nestjs/common';
-import { ILocationsDots } from '../location-strategy/location-strategy.service';
-import { BipartiteSubsetsService } from './bipartite-subset.service';
+import { ILocationInput, ILocationsDots } from '../location-strategy/location-strategy.service';
+import { BellmanFordService } from './bellman-ford.service';
+import { FloydWarshallService } from './floyd-warshall.service';
 
 /**
 * Algorithms Service class
@@ -10,10 +11,15 @@ import { BipartiteSubsetsService } from './bipartite-subset.service';
 @Injectable()
 export class AlgorithmsService {
   constructor(
-      private readonly bipartiteSubsetsService: BipartiteSubsetsService,
+      private readonly floydWarshallService: FloydWarshallService,
+      private readonly bellmanFordService: BellmanFordService,
   ) {}
 
-  public async bipartiteSubsets(data: ILocationsDots[][]): Promise<ILocationsDots[]> {
-    return this.bipartiteSubsetsService.algorithm(data);
+  public async floydWarshallAlgorithm(data: ILocationInput): Promise<ILocationsDots[]> {
+    return this.floydWarshallService.algorithm(data);
+  }
+
+  public async bellmanFordAlgorithm(data: ILocationInput): Promise<ILocationsDots[]> {
+    return this.bellmanFordService.algorithm(data);
   }
 }

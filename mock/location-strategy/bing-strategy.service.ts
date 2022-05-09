@@ -1,14 +1,15 @@
 import { Injectable } from '@nestjs/common';
+import { BaseLocationStrategyService } from './base-location-startegy.service';
 import { ILocationInput, ILocationsDots } from './location-strategy.service';
 
 /**
 * Google Strategy Service class
-* @name GoogleStrategyService
+* @name BingStrategyService
 * @kind class
 */
 @Injectable()
-export class GoogleStrategyService {
-  constructor() {}
+export class BingStrategyService extends BaseLocationStrategyService {
+  constructor() { super() }
 
   public async strategy(data: ILocationInput): Promise<ILocationsDots[]> {
     // MOCK
